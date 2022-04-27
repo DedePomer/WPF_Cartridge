@@ -3,19 +3,68 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF_Cartridge"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+        xmlns:local="clr-namespace:WPF_Cartridge"     
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="CatrigeProg" Height="450" Width="800" Icon="Resources\Катридж.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ToolBar Grid.Row="0" Background="White">
-            
-        </ToolBar>
+
+        <ToolBarTray Grid.Row="0">
+            <ToolBarTray.Resources>
+                <Style TargetType="fa:ImageAwesome">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Width" Value="16"/>
+                <Setter Property="Height" Value="16"/>
+                </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="4"/>
+                    <Setter Property="Padding" Value="4"/>
+                </Style>
+            </ToolBarTray.Resources>
+            <ToolBar  Background="White" >
+
+
+
+                <Button Margin="8 0 0 0"
+                    ToolTip="Создание отчёта">
+                    <Border Background="Green" >
+                        <fa:ImageAwesome Icon="Book" ></fa:ImageAwesome>
+                    </Border>
+                </Button>
+
+                <Button ToolTip="Просмотр типов данных">
+                    <Border Background="Orange" >
+                        <fa:ImageAwesome Icon="Database" ></fa:ImageAwesome>
+                    </Border>
+                </Button>
+
+                <Button ToolTip="Последние заправленные">
+                    <Border Background="Red" >
+                        <fa:ImageAwesome Icon="Hourglass" ></fa:ImageAwesome>
+                    </Border>
+                </Button>
+            </ToolBar>
+
+            <ToolBar Background="White" HorizontalAlignment="Right">
+                <Button ToolTip="Светлая тема">
+                    <Border Background="White">
+                        <fa:ImageAwesome Icon="SunOutline" Foreground="Black"></fa:ImageAwesome>
+                    </Border>
+                </Button>
+                <Button ToolTip="Светлая тема">
+                    <Border Background="Black">
+                        <fa:ImageAwesome Icon="MoonOutline" Foreground="White"></fa:ImageAwesome>
+                    </Border>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
         
+
         <ScrollViewer Grid.Row="1">
             <Frame Name="Fmain"  NavigationUIVisibility="Hidden"/>
         </ScrollViewer>
