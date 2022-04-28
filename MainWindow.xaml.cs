@@ -23,6 +23,7 @@ namespace WPF_Cartridge
         public MainWindow()
         {
             InitializeComponent();
+            Fmain.Navigate(new PageFolder.TablePage());
         }
     }
 }
