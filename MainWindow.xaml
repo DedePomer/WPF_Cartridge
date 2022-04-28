@@ -7,127 +7,53 @@
         xmlns:local="clr-namespace:WPF_Cartridge"     
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="WPF_Cartridge.MainWindow"     
         mc:Ignorable="d"
-        Title="CatrigeProg" Height="450" Width="800" Icon="Resources\Катридж.png">
-    <Window.Resources>
-        <!--Отключаем синее выделение кнопки-->
-        <Style x:Key="FocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="Transparent"/>
-        <Style x:Key="ButtonClick" TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-    
-    
+        Title="CatrigeProg" Height="450" Width="800" Icon="Resources\Катридж.png" MinHeight="450" MinWidth="800" MaxHeight="720" MaxWidth="1280">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <ToolBarTray Grid.Row="0" Background="White" >
-            <ToolBarTray.Resources>
-                <Style TargetType="{x:Type fa:ImageAwesome}" >
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Width" Value="16"/>
-                    <Setter Property="Height" Value="16"/>
-                </Style>
-                <Style TargetType="{x:Type Border}" BasedOn="{StaticResource BorderClik}">
-                    <Setter Property="CornerRadius" Value="4"/>
-                    <Setter Property="Padding" Value="3"/>
-                </Style>
-            </ToolBarTray.Resources>
-            <ToolBar  Background="White"  >
-
-                <Button Margin="8 0 0 0"
+        <StackPanel Grid.Row="0" Background="White" Orientation="Horizontal" HorizontalAlignment="Left" Margin="8 0 0 0">
+            <Button 
                     ToolTip="Создание отчёта"
-                        Style="{DynamicResource ButtonClick}">
-                    <Border Background="Green" ClipToBounds="True">
-                        <fa:ImageAwesome Icon="Book"/>
-                    </Border>
-                </Button>
+                        >
+                <Border Background="Green" ClipToBounds="True" Style="{StaticResource BorderButton}">
+                    <fa:ImageAwesome Icon="Book"/>
+                </Border>
+            </Button>
 
-                <Button ToolTip="Просмотр типов данных"
-                         Style="{DynamicResource ButtonClick}">
+            <Button ToolTip="Просмотр типов данных"
+                         >
+                <Border Background="Orange" ClipToBounds="True" Style="{StaticResource BorderButton}">
+                    <fa:ImageAwesome Icon="Database" />
+                </Border>
+            </Button>
 
-                    <Border Background="Orange" ClipToBounds="True">
-                        <fa:ImageAwesome Icon="Database" />
-                    </Border>
-                </Button>
-
-                <Button ToolTip="Последние заправленные"
-                        Style="{DynamicResource ButtonClick}">
-                    <Border Background="DarkRed" ClipToBounds="True">
-                        <fa:ImageAwesome Icon="Hourglass" />
-                    </Border>
-                </Button>
-            </ToolBar>
-
-            <ToolBar Background="White" HorizontalAlignment="Right" >
-                <Button ToolTip="Светлая тема"
-                         Style="{DynamicResource ButtonClick}">
-                    <Border Padding="2" Background="White" BorderBrush="Black" BorderThickness="1">
-                        <fa:ImageAwesome Icon="SunOutline" Foreground="Black"/>
-                    </Border>
-                </Button>
-                <Button ToolTip="Светлая тема"
-                         Style="{DynamicResource ButtonClick}">
-                    <Border Background="Black">
-                        <fa:ImageAwesome Icon="MoonOutline" Foreground="White"/>
-                    </Border>
-                </Button>
-            </ToolBar>
-        </ToolBarTray>
-     
+            <Button ToolTip="Последние заправленные"
+                        >
+                <Border Background="DarkRed" ClipToBounds="True" Style="{StaticResource BorderButton}">
+                    <fa:ImageAwesome Icon="Hourglass" />
+                </Border>
+            </Button>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 15 0">
+            <Button x:Name="BWhiteTheme" ToolTip="Светлая тема"
+                         
+                         Click="BWhiteTheme_Click">
+                <Border Padding="2" Background="White" BorderBrush="Black" BorderThickness="1" Style="{StaticResource BorderButton}">
+                    <fa:ImageAwesome Icon="SunOutline" Foreground="Black"/>
+                </Border>
+            </Button>
+            <Button x:Name="BBlackTheme" ToolTip="Светлая тема"
+                        
+                         Click="BBlackTheme_Click">
+                <Border Background="Black" Style="{StaticResource BorderButton}">
+                    <fa:ImageAwesome Icon="MoonOutline" Foreground="White"/>
+                </Border>
+            </Button>
+        </StackPanel>
+        
         <ScrollViewer Grid.Row="1">
             <Frame x:Name="Fmain"  NavigationUIVisibility="Hidden"/>
         </ScrollViewer>
