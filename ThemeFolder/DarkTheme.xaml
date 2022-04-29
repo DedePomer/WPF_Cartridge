@@ -8,6 +8,8 @@
         </Style.Setters>
     </Style>
 
+
+
     <!--Отключаем синее выделение кнопки-->
 
     <SolidColorBrush x:Key="Button.Static.Background" Color="Transparent"/>

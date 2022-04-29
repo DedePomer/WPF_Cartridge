@@ -7,42 +7,58 @@
         xmlns:local="clr-namespace:WPF_Cartridge"     
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="WPF_Cartridge.MainWindow"     
         mc:Ignorable="d"
-        Title="CatrigeProg" Height="450" Width="800" Icon="Resources\Катридж.png" MinHeight="450" MinWidth="800" MaxHeight="720" MaxWidth="1280">
+        Title="CatrigeProg" Height="450" Width="800"
+        Icon="Resources\Катридж.png" MinHeight="450"   
+        MinWidth="800" MaxHeight="720" MaxWidth="1280"
+        WindowStyle="None" AllowsTransparency="true">
+    <Window.Resources>
+
+        
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="19"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Background="White" Orientation="Horizontal" HorizontalAlignment="Left" Margin="8 0 0 0">
-            <Button 
-                    ToolTip="Создание отчёта"
-                        >
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+
+        </StackPanel>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Path Height="10" Width="10"  StrokeThickness="1"  Stroke="Black">
+                <Path.Data>
+                    <GeometryGroup FillRule="Nonzero">
+                        <LineGeometry  StartPoint="0,0" EndPoint="10,10" />
+                        <LineGeometry  StartPoint="0,10" EndPoint="10,0" />
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Background="Transparent" Orientation="Horizontal" HorizontalAlignment="Left" Margin="8 0 0 0">
+            <Button  ToolTip="Создание отчёта">
                 <Border Background="Green" ClipToBounds="True" Style="{StaticResource BorderButton}">
                     <fa:ImageAwesome Icon="Book"/>
                 </Border>
             </Button>
 
-            <Button ToolTip="Просмотр типов данных"
-                         >
+            <Button ToolTip="Просмотр типов данных"  >
                 <Border Background="Orange" ClipToBounds="True" Style="{StaticResource BorderButton}">
                     <fa:ImageAwesome Icon="Database" />
                 </Border>
             </Button>
 
-            <Button ToolTip="Последние заправленные"
-                        >
+            <Button ToolTip="Последние заправленные" >
                 <Border Background="DarkRed" ClipToBounds="True" Style="{StaticResource BorderButton}">
                     <fa:ImageAwesome Icon="Hourglass" />
                 </Border>
             </Button>
         </StackPanel>
-        
-        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 15 0">
-            <Button x:Name="BWhiteTheme" ToolTip="Светлая тема"
-                         
+        <StackPanel Background="Transparent" Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
+            <Button x:Name="BWhiteTheme" ToolTip="Светлая тема"                        
                          Click="BWhiteTheme_Click">
                 <Border Padding="2" Background="White" BorderBrush="Black" BorderThickness="1" Style="{StaticResource BorderButton}">
-                    <fa:ImageAwesome Icon="SunOutline" Foreground="Black"/>
+                    <fa:ImageAwesome  Icon="SunOutline" Foreground="Black"/>
                 </Border>
             </Button>
             <Button x:Name="BBlackTheme" ToolTip="Светлая тема"
@@ -54,7 +70,7 @@
             </Button>
         </StackPanel>
         
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="2">
             <Frame x:Name="Fmain"  NavigationUIVisibility="Hidden"/>
         </ScrollViewer>
     </Grid>
