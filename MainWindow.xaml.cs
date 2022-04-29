@@ -45,7 +45,7 @@ namespace WPF_Cartridge
         #region Methods
         private void ChangeTheme(char theme)
         {
-            string appPath = "App.xaml";
+            string commPath = "ThemeFolder\\CommonTheme.xaml";
             string pathTheme = "";
             if (theme == 'd')
             {
@@ -56,12 +56,12 @@ namespace WPF_Cartridge
                 pathTheme = "ThemeFolder\\LightTheme.xaml";
             }
             var uriTheme = new Uri(pathTheme, UriKind.Relative);
-            var uriApp = new Uri(appPath, UriKind.Relative);
+            var commApp = new Uri(commPath, UriKind.Relative);
             Application.Current.Resources.Clear();
             ResourceDictionary resourceDictTheme = Application.LoadComponent(uriTheme) as ResourceDictionary;
-            //ResourceDictionary resourceDictApp = Application.LoadComponent(uriApp) as ResourceDictionary;
+            ResourceDictionary resourceDictApp = Application.LoadComponent(commApp) as ResourceDictionary;
             Application.Current.Resources.MergedDictionaries.Add(resourceDictTheme);
-            //Application.Current.Resources.MergedDictionaries.Add(resourceDictApp);
+            Application.Current.Resources.MergedDictionaries.Add(resourceDictApp);
         }
         #endregion
 

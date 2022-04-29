@@ -5,42 +5,14 @@
              xmlns:local="clr-namespace:WPF_Cartridge"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
-
-
-        <!--Описания шрифта со значками-->
-        <FontFamily x:Key="FontAwesome">/Fonts/fontawesome-webfont.ttf#FontAwesome</FontFamily>
-
-        <!--Стили при наведении-->
-        <Style TargetType="fa:ImageAwesome" x:Key="Click">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Effect">
-                        <Setter.Value>
-                            <DropShadowEffect Color="Black" BlurRadius="5"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="Border" x:Key="BorderClik">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Opacity" Value=".6"/>
-                    <Setter Property="Background" Value="Black"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!--Стили для содержимого кнопок-->
-        <Style TargetType="{x:Type fa:ImageAwesome}" >
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Width" Value="16"/>
-            <Setter Property="Height" Value="16"/>
-        </Style>
-        <Style TargetType="Border" BasedOn="{StaticResource BorderClik}" x:Key="BorderButton">
-            <Setter Property="CornerRadius" Value="4"/>
-            <Setter Property="Padding" Value="3"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="ThemeDictionary">
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="\ThemeFolder\CommonTheme.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
