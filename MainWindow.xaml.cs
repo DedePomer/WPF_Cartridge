@@ -23,6 +23,7 @@ namespace WPF_Cartridge
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool MainWindowState = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +40,30 @@ namespace WPF_Cartridge
         private void BWhiteTheme_Click(object sender, RoutedEventArgs e)
         {
             ChangeTheme('w');
+        }
+
+        private void BClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void BWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MainWindowState)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                MainWindowState = true;
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+                MainWindowState = false;
+            }
+        }
+
+        private void BCollapse_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
         #endregion
 
@@ -63,6 +88,7 @@ namespace WPF_Cartridge
             Application.Current.Resources.MergedDictionaries.Add(resourceDictTheme);
             Application.Current.Resources.MergedDictionaries.Add(resourceDictApp);
         }
+
         #endregion
 
 

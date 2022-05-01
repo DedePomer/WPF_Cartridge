@@ -61,11 +61,11 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
     <Style TargetType="Border" x:Key="BorderClik">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Opacity" Value=".6"/>
-                <Setter Property="Background" Value="Black"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -79,6 +79,15 @@
     <Style TargetType="Border" BasedOn="{StaticResource BorderClik}" x:Key="BorderButton">
         <Setter Property="CornerRadius" Value="4"/>
         <Setter Property="Padding" Value="3"/>
+    </Style>
+    
+    <!--Стиль для кнопок верхней панели-->
+    <Style x:Key="BorderClose" TargetType="Border">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Red"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

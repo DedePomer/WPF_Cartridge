@@ -10,30 +10,84 @@
         Title="CatrigeProg" Height="450" Width="800"
         Icon="Resources\Катридж.png" MinHeight="450"   
         MinWidth="800" MaxHeight="720" MaxWidth="1280"
-        WindowStyle="None" AllowsTransparency="true">
+        WindowStyle="None" AllowsTransparency="True"
+        >
     <Window.Resources>
-
-        
     </Window.Resources>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+                    CaptionHeight ="33" 
+                    NonClientFrameEdges="None"
+                    GlassFrameThickness="0"
+                    ResizeBorderThickness="7"/>
+    </WindowChrome.WindowChrome>
+    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="19"/>
+            <RowDefinition Height="33" />
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
 
-        </StackPanel>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Path Height="10" Width="10"  StrokeThickness="1"  Stroke="Black">
-                <Path.Data>
-                    <GeometryGroup FillRule="Nonzero">
-                        <LineGeometry  StartPoint="0,0" EndPoint="10,10" />
-                        <LineGeometry  StartPoint="0,10" EndPoint="10,0" />
-                    </GeometryGroup>
-                </Path.Data>
-            </Path>
-        </StackPanel>
+        <Grid Grid.Row="0" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                       Grid.Row="0" Background="Black"
+                       Width="Auto"
+                            Height="Auto" >
+                <StackPanel Grid.Column="0"  Orientation="Horizontal" DockPanel.Dock="Left">
+                    <Image Source="Resources\Катридж.png" Height="17" Width="17" Margin="9 8"/>
+                    <TextBlock Margin="0 8" Foreground="White">Картриджаня слежка</TextBlock>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" DockPanel.Dock="Right">
+                    <Button x:Name="BCollapse" Background="Transparent" 
+                        Click="BCollapse_Click"  BorderThickness="0"
+                        WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Border Padding="18 11">
+                            <Path Height="10" Width="10"  StrokeThickness="2"  
+                              Stroke="White" >
+                                <Path.Data>
+                                    <GeometryGroup FillRule="Nonzero">
+                                        <LineGeometry  StartPoint="0,9" EndPoint="9,9" />
+                                    </GeometryGroup>
+                                </Path.Data>
+                            </Path>
+                        </Border>
+                    </Button>
+
+                    <Button x:Name="BWindow" Background="Transparent" 
+                        Click="BWindow_Click"  BorderThickness="0" 
+                        WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Border Style="{StaticResource BorderButton}" Padding="18 11">
+                            <Rectangle  Stroke="White" StrokeThickness="1" Width="10" Height="10" />
+                        </Border>
+                    </Button>
+
+                    <Button x:Name="BClose" Background="Transparent" 
+                        Click="BClose_Click" BorderThickness="0" 
+                        WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Border Style="{StaticResource BorderClose}" Padding="18 11" Height="33">
+                            <Path Height="10" Width="10"  StrokeThickness="1"  
+                              Stroke="White" >
+                                <Path.Data>
+                                    <GeometryGroup FillRule="Nonzero">
+                                        <LineGeometry  StartPoint="0,0" EndPoint="10,10" />
+                                        <LineGeometry  StartPoint="0,10" EndPoint="10,0" />
+                                    </GeometryGroup>
+                                </Path.Data>
+                            </Path>
+                        </Border>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+        
+       
 
         <StackPanel Grid.Row="1" Background="Transparent" Orientation="Horizontal" HorizontalAlignment="Left" Margin="8 0 0 0">
             <Button  ToolTip="Создание отчёта">
@@ -54,7 +108,8 @@
                 </Border>
             </Button>
         </StackPanel>
-        <StackPanel Background="Transparent" Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 15 0">
+        <StackPanel Background="Transparent" Orientation="Horizontal" 
+                    Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 8 0">
             <Button x:Name="BWhiteTheme" ToolTip="Светлая тема"                        
                          Click="BWhiteTheme_Click">
                 <Border Padding="2" Background="White" BorderBrush="Black" BorderThickness="1" Style="{StaticResource BorderButton}">
