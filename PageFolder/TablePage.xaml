@@ -10,11 +10,13 @@
 
     <Grid>
         
-            <Border Width="100" Height="100" Background="Azure" BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
+            <!--<Border Width="100" Height="100" Background="Azure" BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
                 <Border Width="96" Height="96" Background="Azure"   Style="{StaticResource BorderClik}">
 
                 </Border>
-            </Border>
-       
+            </Border>-->
+
+        
+
     </Grid>
 </Page>

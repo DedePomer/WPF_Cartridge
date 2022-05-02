@@ -24,9 +24,11 @@ namespace WPF_Cartridge
     public partial class MainWindow : Window
     {
         bool MainWindowState = false;
+
         public MainWindow()
         {
             InitializeComponent();
+            ChangeTheme('w');
             Fmain.Navigate(new PageFolder.TablePage());
         }
 
@@ -80,15 +82,15 @@ namespace WPF_Cartridge
             {
                 pathTheme = "ThemeFolder\\LightTheme.xaml";
             }
+            // добавляем темы в ресурсы приложения
             var uriTheme = new Uri(pathTheme, UriKind.Relative);
             var commApp = new Uri(commPath, UriKind.Relative);
-            Application.Current.Resources.Clear();
+            Application.Current.Resources.Clear(); 
             ResourceDictionary resourceDictTheme = Application.LoadComponent(uriTheme) as ResourceDictionary;
             ResourceDictionary resourceDictApp = Application.LoadComponent(commApp) as ResourceDictionary;
             Application.Current.Resources.MergedDictionaries.Add(resourceDictTheme);
             Application.Current.Resources.MergedDictionaries.Add(resourceDictApp);
         }
-
         #endregion
 
 
