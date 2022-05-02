@@ -32,7 +32,7 @@ namespace WPF_Cartridge
             Fmain.Navigate(new PageFolder.TablePage());
 
             Model.Cartridge cartridge = new Model.Cartridge("Cannon", 10);
-            ClassesFolder.BDClass.bd.СartridgesInfo.Add(cartridge);
+            ClassesFolder.BDClass.bd.Сartridges.Add(cartridge);
             ClassesFolder.BDClass.bd.SaveChanges();
         }
 

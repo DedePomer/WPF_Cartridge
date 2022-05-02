@@ -10,7 +10,7 @@ namespace WPF_Cartridge.Model
 {
     class AppContex: DbContext
     {
-        public DbSet<Cartridge> СartridgesInfo { get; set; }
+        public DbSet<Cartridge> Сartridges { get; set; }
 
         public AppContex() : base("DefaultConnection") 
         { }
