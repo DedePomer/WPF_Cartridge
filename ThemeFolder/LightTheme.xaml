@@ -6,10 +6,14 @@
     <!--цвета-->
     <SolidColorBrush x:Key="ButtonPanelcolor" Color="Black"/>
     <SolidColorBrush x:Key="BasicColor" Color="White"/>
-    <SolidColorBrush x:Key="TitleColor" Color="#afafad" Opacity=".2"/>
+    <SolidColorBrush x:Key="TitleColor" Color="#afafad" Opacity=".3"/>
     <SolidColorBrush x:Key="MainColor" Color="#afafad" Opacity=".1"/>
 
-    
+    <Style TargetType="ScrollBar">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource TitleColor}"/>
+        </Style.Setters>
+    </Style>
 
 
 

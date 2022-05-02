@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using a =Microsoft.Windows.Themes;
+
 
 
 namespace WPF_Cartridge
@@ -23,13 +23,17 @@ namespace WPF_Cartridge
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool MainWindowState = false;
-
+        bool mainWindowState = false;
         public MainWindow()
         {
             InitializeComponent();
+            ClassesFolder.BDClass.bd = new Model.AppContex();
             ChangeTheme('w');
             Fmain.Navigate(new PageFolder.TablePage());
+
+            Model.Cartridge cartridge = new Model.Cartridge("Cannon", 10);
+            ClassesFolder.BDClass.bd.СartridgesInfo.Add(cartridge);
+            ClassesFolder.BDClass.bd.SaveChanges();
         }
 
 
@@ -51,15 +55,15 @@ namespace WPF_Cartridge
 
         private void BWindow_Click(object sender, RoutedEventArgs e)
         {
-            if (!MainWindowState)
+            if (!mainWindowState)
             {
                 Application.Current.MainWindow.WindowState = WindowState.Maximized;
-                MainWindowState = true;
+                mainWindowState = true;
             }
             else
             {
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
-                MainWindowState = false;
+                mainWindowState = false;
             }
         }
 

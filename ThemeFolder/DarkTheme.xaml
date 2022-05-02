@@ -8,7 +8,11 @@
     <SolidColorBrush x:Key="TitleColor" Color="#e8e9ea" Opacity=".3"/>
     <SolidColorBrush x:Key="MainColor" Color="#e8e9ea" Opacity=".1"/>
 
-
+    <Style TargetType="ScrollBar">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource TitleColor}"/>
+        </Style.Setters>
+    </Style>
 
 
 </ResourceDictionary>
