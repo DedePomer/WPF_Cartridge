@@ -8,39 +8,15 @@ namespace WPF_Cartridge.Model
 {
     class Cartridge
     {
-        public int id { get; set; }
-        private string type { get; set; }
-        private int count { get; set; }
-
-
-        public string Type
-        {
-            get 
-            {
-                return type;
-            }
-            set 
-            {
-                type = value;
-            }
-        }
-        public int Count
-        {
-            get
-            {
-                return count;
-            }
-            set
-            {
-                count = value;
-            }
-        }
-
+        public int Id { get; set; }
+        public string Type { get; set; }
+        public int Count { get; set; }
+       
         public Cartridge() { }
-        public Cartridge(string Type, int Count) 
+        public Cartridge(string type, int count) 
         {
-            this.Type = Type;
-            this.Count = Count;
+            this.Type = type;
+            this.Count = count;
         }
 
     }
