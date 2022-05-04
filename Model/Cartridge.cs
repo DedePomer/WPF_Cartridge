@@ -8,16 +8,27 @@ namespace WPF_Cartridge.Model
 {
     class Cartridge
     {
-        public int Id { get; set; }
-        public string Type { get; set; }
-        public int Count { get; set; }
-       
-        public Cartridge() { }
-        public Cartridge(string type, int count) 
-        {
-            this.Type = type;
-            this.Count = count;
-        }
 
+        #region Properties
+        public int id { get; set; }
+        public int number { get; set; }
+        public string name { get; set; }
+        public string color { get; set; }
+        public int countFull { get; set; }
+        public int countEmpty { get; set; }
+        #endregion
+
+        #region Constructors
+        public Cartridge() { }
+        public Cartridge(int number, string name, 
+            string color, int countFull, int countEmpty)
+        {
+            this.number = number;
+            this.name = name;
+            this.color = color;
+            this.countFull = countFull;
+            this.countEmpty = countEmpty;
+        }
+        #endregion
     }
 }

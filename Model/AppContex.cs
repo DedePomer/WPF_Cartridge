@@ -14,6 +14,8 @@ namespace WPF_Cartridge.Model
     {
         public AppContex() : base("DefaultConnection")
         { }
-        public DbSet<Cartridge> Cartridges { get; set; }        
+
+        public DbSet<Cartridge> Cartridges { get; set; }
+        public DbSet<Report> Reports { get; set; }
     }
 }

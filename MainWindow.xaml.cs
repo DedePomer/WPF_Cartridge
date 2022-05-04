@@ -31,9 +31,10 @@ namespace WPF_Cartridge
             ChangeTheme('w');
             Fmain.Navigate(new PageFolder.TablePage());
 
-            Model.Cartridge cartridge = new Model.Cartridge("Cannon", 10);
-            ClassesFolder.BDClass.bd.Cartridges.Add(cartridge);
-            ClassesFolder.BDClass.bd.SaveChanges();
+
+            List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
+            List<Model.Report> reports = ClassesFolder.BDClass.bd.Reports.ToList();
+
         }
 
 
