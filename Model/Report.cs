@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_Cartridge.Model
 {
-    internal class Report
+    public partial class  Report
     {
         #region Properties
         public int id { get; set; }

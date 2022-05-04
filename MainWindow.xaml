@@ -32,10 +32,10 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" TextOptions.TextRenderingMode="ClearType" 
-              TextOptions.TextFormattingMode="Display" Grid.ColumnSpan="2">
+              TextOptions.TextFormattingMode="Display">
 
             <DockPanel
-                                HorizontalAlignment="Stretch"
+                                HorizontalAlignment="Stretch"                                
                                 Background="Transparent"
                                 VerticalAlignment="Stretch"
                                 >

@@ -7,6 +7,7 @@
     <SolidColorBrush x:Key="BasicColor" Color="Black"/>
     <SolidColorBrush x:Key="TitleColor" Color="#e8e9ea" Opacity=".3"/>
     <SolidColorBrush x:Key="MainColor" Color="#e8e9ea" Opacity=".1"/>
+    <SolidColorBrush x:Key="GrayColor" Color="#afafad"/>
 
     <Style TargetType="ScrollBar">
         <Style.Setters>

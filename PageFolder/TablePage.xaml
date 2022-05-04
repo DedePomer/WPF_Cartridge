@@ -8,13 +8,67 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TablePage">
 
+
+    <Page.Resources>
+        <ControlTemplate x:Key="CTtemplate" TargetType="{x:Type ItemsControl}">
+            <Border Background="Transparent" Padding="3" HorizontalAlignment="Stretch">
+                
+            </Border>
+        </ControlTemplate>
+
+        <DataTemplate x:Key="ProjectItem">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Stretch">
+                <Border BorderThickness="1" CornerRadius="15" ClipToBounds="True" Padding="4">
+                    <Border Background="Gray" CornerRadius="15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Grid.Column="0">
+                                <TextBlock Text="{Binding NNC, StringFormat=Название: {0}}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding countFull, StringFormat=Количество заполненных: {0} }"/>
+                                    <TextBlock Text="{Binding countEmpty, StringFormat=Количество пустых: {0}}"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
+                                <Button Height="10" Width="10"/>
+                                <Button Height="10" Width="10"/>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </Border>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    
+    
     <Grid>
-        
-            <!--<Border Width="100" Height="100" Background="Azure" BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/> <!--место для сортировки-->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <ListBox x:Name="LBTypeList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     
+                     ItemTemplate="{DynamicResource ProjectItem }">
+
+            </ListBox>            
+        </Grid>
+        <!--<Border Width="100" Height="100" Background="Azure" BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
                 <Border Width="96" Height="96" Background="Azure"   Style="{StaticResource BorderClik}">
 
                 </Border>
             </Border>-->
+        
+        
 
         
 

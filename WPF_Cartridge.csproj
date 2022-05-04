@@ -113,6 +113,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassesFolder\ParticalClasses\ParticalCatridge.cs" />
     <Compile Include="Model\Report.cs" />
     <Compile Include="PageFolder\TablePage.xaml.cs">
       <DependentUpon>TablePage.xaml</DependentUpon>

@@ -30,11 +30,6 @@ namespace WPF_Cartridge
             ClassesFolder.BDClass.bd = new Model.AppContex();
             ChangeTheme('w');
             Fmain.Navigate(new PageFolder.TablePage());
-
-
-            List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
-            List<Model.Report> reports = ClassesFolder.BDClass.bd.Reports.ToList();
-
         }
 
 

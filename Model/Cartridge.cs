@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_Cartridge.Model
 {
-    class Cartridge
+    public partial class Cartridge
     {
 
         #region Properties
