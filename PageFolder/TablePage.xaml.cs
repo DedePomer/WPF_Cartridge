@@ -28,6 +28,7 @@ namespace WPF_Cartridge.PageFolder
             LBTypeList.ItemsSource = StartList;
         }
 
+        #region Events
         private void BFill_Click(object sender, RoutedEventArgs e)
         {
 
@@ -37,5 +38,11 @@ namespace WPF_Cartridge.PageFolder
         {
 
         }
+        #endregion
+
+        #region Methods
+
+        #endregion
+
     }
 }
