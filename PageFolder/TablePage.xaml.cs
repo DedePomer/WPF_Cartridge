@@ -27,5 +27,15 @@ namespace WPF_Cartridge.PageFolder
             InitializeComponent();
             LBTypeList.ItemsSource = StartList;
         }
+
+        private void BFill_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BNull_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

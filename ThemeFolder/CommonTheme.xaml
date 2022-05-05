@@ -89,7 +89,12 @@
         <Setter Property="Padding" Value="3"/>
     </Style>
 
+    <!--Шаблон для кнопок List-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="TPanelButton">
+        <Border x:Name="border" BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"  SnapsToDevicePixels="true" CornerRadius="7" Padding="4 2">
+            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+    </ControlTemplate>
 
-    
 
 </ResourceDictionary>

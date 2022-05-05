@@ -12,7 +12,7 @@ namespace WPF_Cartridge.Model
         {
             get
             {
-                return id +" "+ number +" "+ name;
+                return number + " "+ name + " "+ color;
             }
         }
     }
