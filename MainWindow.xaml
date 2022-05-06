@@ -7,126 +7,192 @@
         xmlns:local="clr-namespace:WPF_Cartridge"     
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="WPF_Cartridge.MainWindow"     
         mc:Ignorable="d"
-        Title="CatrigeProg" Height="450" Width="800"
+        Title="CatrigeProg" Height="600" Width="1500"
         Icon="Resources\Катридж.png" MinHeight="450"   
-        MinWidth="800" MaxHeight="720" MaxWidth="1280"
+        MinWidth="800" MaxHeight="2000" MaxWidth="1500"
         WindowStyle="None" AllowsTransparency="True"
         >
     <Window.Resources>
+        
     </Window.Resources>
 
+    <!--задаю размер области за которую можно перетаскивать окно-->
     <WindowChrome.WindowChrome>
         <WindowChrome 
                     CaptionHeight ="33" 
                     NonClientFrameEdges="None"
-                    GlassFrameThickness="0"
                     ResizeBorderThickness="7"/>
     </WindowChrome.WindowChrome>
-    
-    <Grid>
+
+    <Grid Background="{DynamicResource BasicColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="33" />
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                       Grid.Row="0" Background="Black"
-                       Width="Auto"
-                            Height="Auto" >
-                <StackPanel Grid.Column="0"  Orientation="Horizontal" DockPanel.Dock="Left">
-                    <Image Source="Resources\Катридж.png" Height="17" Width="17" Margin="9 8"/>
-                    <TextBlock Margin="0 8" Foreground="White">Картриджаня слежка</TextBlock>
-                </StackPanel>
+        <Grid Grid.Row="0" TextOptions.TextRenderingMode="ClearType" 
+              TextOptions.TextFormattingMode="Display">
+            <DockPanel
+                                HorizontalAlignment="Stretch"                                
+                                Background="Transparent"
+                                VerticalAlignment="Stretch"
+                                >
+                <Border                                    
+                                    DockPanel.Dock="Top"
+                                    Background="{DynamicResource BasicColor}"
+                                    BorderThickness="0"
+                                    >
+                    <Grid Height="32">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="36"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="34"/>
+                            <ColumnDefinition Width="34"/>
+                            <ColumnDefinition Width="34"/>
+                        </Grid.ColumnDefinitions>
+                        <Image                                       
+                                            Grid.Column="0"
+                                            Source="Resources\Катридж.png"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"                                           
+                                            Width="17"
+                                            Height="17"
+                                            WindowChrome.IsHitTestVisibleInChrome="True"
+                                            />
+                        <TextBlock                                           
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Margin="4,0,0,0"
+                                            Foreground="{DynamicResource ButtonPanelcolor}"
+                                            FontFamily="Segoe UI"
+                                            FontSize="12"                                            
+                                            Text="Картридж"
+                                            />
+                        <Button
+                                            Style="{DynamicResource VS2012WindowStyleTitleBarButton}"
+                                            x:Name="BCollapse"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Top"
+                                            Width="34"
+                                            Height="26"
+                                            WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Background="Transparent"
+                                            Click="BCollapse_Click"
+                                            BorderThickness="0"
+                                            >
+                            <Grid MaxHeight="9" MaxWidth="9" Background="Transparent">
+                                <Path
+                                                    Stroke="{DynamicResource ButtonPanelcolor}"
+                                                    StrokeThickness="1"
+                                                    Stretch="None"
+                                                    RenderOptions.EdgeMode="Aliased"
+                                                    Data="M0,8 H8 M0,7 H8 M0,6 H8"
+                                                    />
+                            </Grid>
+                        </Button>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal" DockPanel.Dock="Right">
-                    <Button x:Name="BCollapse" Background="Transparent" 
-                        Click="BCollapse_Click"  BorderThickness="0"
-                        WindowChrome.IsHitTestVisibleInChrome="True">
-                        <Border Padding="18 11">
-                            <Path Height="10" Width="10"  StrokeThickness="2"  
-                              Stroke="White" >
-                                <Path.Data>
-                                    <GeometryGroup FillRule="Nonzero">
-                                        <LineGeometry  StartPoint="0,9" EndPoint="9,9" />
-                                    </GeometryGroup>
-                                </Path.Data>
-                            </Path>
-                        </Border>
-                    </Button>
+                        <Button
+                                            Style="{DynamicResource VS2012WindowStyleTitleBarButton}"
+                                            Grid.Column="3"
+                                            x:Name="BWindow"
+                                            VerticalAlignment="Top"
+                                            Width="34"
+                                            Height="26"                                            
+                                            Click="BWindow_Click"
+                                            WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            >
+                            <Grid MaxHeight="9" MaxWidth="9" Background="Transparent">
+                                <Path                                                    
+                                                    Stroke="{DynamicResource ButtonPanelcolor}"
+                                                    StrokeThickness="1"
+                                                    Stretch="None"
+                                                    RenderOptions.EdgeMode="Aliased"
+                                                    Data="M0,0 H8 V8 H0 V0 M0,1 H8 M0,2 H8"
+                                                    />
+                            </Grid>
+                        </Button>
 
-                    <Button x:Name="BWindow" Background="Transparent" 
-                        Click="BWindow_Click"  BorderThickness="0" 
-                        WindowChrome.IsHitTestVisibleInChrome="True">
-                        <Border Style="{StaticResource BorderButton}" Padding="18 11">
-                            <Rectangle  Stroke="White" StrokeThickness="1" Width="10" Height="10" />
-                        </Border>
-                    </Button>
-
-                    <Button x:Name="BClose" Background="Transparent" 
-                        Click="BClose_Click" BorderThickness="0" 
-                        WindowChrome.IsHitTestVisibleInChrome="True">
-                        <Border Style="{StaticResource BorderClose}" Padding="18 11" Height="33">
-                            <Path Height="10" Width="10"  StrokeThickness="1"  
-                              Stroke="White" >
-                                <Path.Data>
-                                    <GeometryGroup FillRule="Nonzero">
-                                        <LineGeometry  StartPoint="0,0" EndPoint="10,10" />
-                                        <LineGeometry  StartPoint="0,10" EndPoint="10,0" />
-                                    </GeometryGroup>
-                                </Path.Data>
-                            </Path>
-                        </Border>
-                    </Button>
-                </StackPanel>
+                        <Button
+                                            Style="{DynamicResource VS2012WindowStyleTitleBarButton}"
+                                            Grid.Column="4"
+                                            x:Name="BClose" 
+                                            VerticalAlignment="Top"
+                                            Width="34"
+                                            Height="26"                                          
+                                            Click="BClose_Click"
+                                            WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            >
+                            <Grid MaxHeight="9" MaxWidth="9" Background="Transparent">
+                                <Path
+                                                    Stroke="{DynamicResource ButtonPanelcolor}"
+                                                    StrokeThickness="1.5"
+                                                    Stretch="None"
+                                                    Data="M0,0 L8,8 M0,8 L8,0"
+                                                    />
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </Border>
+                <ContentPresenter />
             </DockPanel>
+
         </Grid>
-        
-       
 
-        <StackPanel Grid.Row="1" Background="Transparent" Orientation="Horizontal" HorizontalAlignment="Left" Margin="8 0 0 0">
-            <Button  ToolTip="Создание отчёта">
-                <Border Background="Green" ClipToBounds="True" Style="{StaticResource BorderButton}">
-                    <fa:ImageAwesome Icon="Book"/>
-                </Border>
-            </Button>
+        <Grid Grid.Row="1" Background="{DynamicResource TitleColor}">
+            <StackPanel Background="Transparent" 
+                    Orientation="Horizontal" HorizontalAlignment="Left" 
+                    Margin="8 4 0 4" Grid.ColumnSpan="2">
 
-            <Button ToolTip="Просмотр типов данных"  >
-                <Border Background="Orange" ClipToBounds="True" Style="{StaticResource BorderButton}">
-                    <fa:ImageAwesome Icon="Database" />
-                </Border>
-            </Button>
+                <Button  ToolTip="Создание отчёта">
+                    <Border Background="Green" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome Icon="Book"/>
+                    </Border>
+                </Button>
 
-            <Button ToolTip="Последние заправленные" >
-                <Border Background="DarkRed" ClipToBounds="True" Style="{StaticResource BorderButton}">
-                    <fa:ImageAwesome Icon="Hourglass" />
-                </Border>
-            </Button>
-        </StackPanel>
-        <StackPanel Background="Transparent" Orientation="Horizontal" 
-                    Grid.Row="1" HorizontalAlignment="Right" Margin="0 0 8 0">
-            <Button x:Name="BWhiteTheme" ToolTip="Светлая тема"                        
+                <Button ToolTip="Просмотр типов данных"  >
+                    <Border Background="Orange" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome Icon="Database" />
+                    </Border>
+                </Button>
+
+                <Button ToolTip="Последние заправленные" >
+                    <Border Background="DarkRed" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome Icon="Hourglass" />
+                    </Border>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Background="Transparent" Orientation="Horizontal" 
+                     HorizontalAlignment="Right" Margin="0 4 8 4" Grid.Column="1">
+                <Button x:Name="BWhiteTheme" ToolTip="Светлая тема"                        
                          Click="BWhiteTheme_Click">
-                <Border Padding="2" Background="White" BorderBrush="Black" BorderThickness="1" Style="{StaticResource BorderButton}">
-                    <fa:ImageAwesome  Icon="SunOutline" Foreground="Black"/>
-                </Border>
-            </Button>
-            <Button x:Name="BBlackTheme" ToolTip="Светлая тема"
+                    <Border Padding="2" Background="{DynamicResource BasicColor}" BorderBrush="{DynamicResource ButtonPanelcolor}" BorderThickness="1"
+                            Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome  Icon="SunOutline" Foreground="{DynamicResource ButtonPanelcolor}"/>
+                    </Border>
+                </Button>
+                <Button x:Name="BBlackTheme" ToolTip="Тёмная тема"
                         
                          Click="BBlackTheme_Click">
-                <Border Background="Black" Style="{StaticResource BorderButton}">
-                    <fa:ImageAwesome Icon="MoonOutline" Foreground="White"/>
-                </Border>
-            </Button>
-        </StackPanel>
-        
-        <ScrollViewer Grid.Row="2">
-            <Frame x:Name="Fmain"  NavigationUIVisibility="Hidden"/>
-        </ScrollViewer>
+                    <Border Background="{DynamicResource ButtonPanelcolor}" Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome Icon="MoonOutline" Foreground="{DynamicResource BasicColor}"/>
+                    </Border>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+
+        <Grid Grid.Row="2" Background="{DynamicResource MainColor}">
+            <ScrollViewer >
+                <Frame x:Name="Fmain"  NavigationUIVisibility="Hidden"/>
+            </ScrollViewer>
+        </Grid>
+
     </Grid>
 </Window>

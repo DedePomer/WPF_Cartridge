@@ -8,13 +8,66 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TablePage">
 
+
+    <Page.Resources>
+        <DataTemplate x:Key="ProjectItem">
+            <StackPanel >
+                <Border BorderThickness="1" CornerRadius="15" ClipToBounds="True" Padding="4">
+                    <Border Background="{DynamicResource TitleColor}" CornerRadius="15" >
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Grid.Column="0">
+                                <TextBlock FontSize="15" Text="{Binding NNC, StringFormat=Название: {0}}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="14" Text="{Binding countFull, StringFormat=Количество заполненных: {0}}"/>
+                                    <TextBlock Text=" "/>
+                                    <TextBlock FontSize="14" Text="{Binding countEmpty, StringFormat=Количество пустых: {0}}"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Column="1">
+                                <Button Margin="0 0 10 0" Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
+                                        Background="#C2FF90" Content="На заправку" Name="BFill" Click="BFill_Click"/> 
+                                <Button Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
+                                        Background="#887CE3" Content="Стал пустым" Name="BNull" Click="BNull_Click"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </Border>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    
+    
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/> <!--место для сортировки-->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <ItemsControl  x:Name="LBTypeList" Width="auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"                     
+                     ItemTemplate="{DynamicResource ProjectItem }"
+                     HorizontalContentAlignment="Stretch">
+            </ItemsControl>     
+            
+            
+        </Grid>
         
-            <Border Width="100" Height="100" Background="Azure" BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
+        
+        
+        <!--<Border Width="100" Height="100" Background="Azure" BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
                 <Border Width="96" Height="96" Background="Azure"   Style="{StaticResource BorderClik}">
 
                 </Border>
-            </Border>
-       
+            </Border>-->
     </Grid>
 </Page>

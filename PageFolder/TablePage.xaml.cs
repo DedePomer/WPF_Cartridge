@@ -20,9 +20,29 @@ namespace WPF_Cartridge.PageFolder
     /// </summary>
     public partial class TablePage : Page
     {
+        List<Model.Cartridge> StartList = ClassesFolder.BDClass.bd.Cartridges.ToList();
+
         public TablePage()
         {
             InitializeComponent();
+            LBTypeList.ItemsSource = StartList;
         }
+
+        #region Events
+        private void BFill_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BNull_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Methods
+
+        #endregion
+
     }
 }

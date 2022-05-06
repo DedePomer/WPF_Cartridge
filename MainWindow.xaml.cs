@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using a =Microsoft.Windows.Themes;
+
 
 
 namespace WPF_Cartridge
@@ -23,10 +23,12 @@ namespace WPF_Cartridge
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool MainWindowState = false;
+        bool mainWindowState = false;
         public MainWindow()
         {
             InitializeComponent();
+            ClassesFolder.BDClass.bd = new Model.AppContex();
+            ChangeTheme('w');
             Fmain.Navigate(new PageFolder.TablePage());
         }
 
@@ -49,15 +51,15 @@ namespace WPF_Cartridge
 
         private void BWindow_Click(object sender, RoutedEventArgs e)
         {
-            if (!MainWindowState)
+            if (!mainWindowState)
             {
                 Application.Current.MainWindow.WindowState = WindowState.Maximized;
-                MainWindowState = true;
+                mainWindowState = true;
             }
             else
             {
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
-                MainWindowState = false;
+                mainWindowState = false;
             }
         }
 
@@ -80,15 +82,15 @@ namespace WPF_Cartridge
             {
                 pathTheme = "ThemeFolder\\LightTheme.xaml";
             }
+            // добавляем темы в ресурсы приложения
             var uriTheme = new Uri(pathTheme, UriKind.Relative);
             var commApp = new Uri(commPath, UriKind.Relative);
-            Application.Current.Resources.Clear();
+            Application.Current.Resources.Clear(); 
             ResourceDictionary resourceDictTheme = Application.LoadComponent(uriTheme) as ResourceDictionary;
             ResourceDictionary resourceDictApp = Application.LoadComponent(commApp) as ResourceDictionary;
             Application.Current.Resources.MergedDictionaries.Add(resourceDictTheme);
             Application.Current.Resources.MergedDictionaries.Add(resourceDictApp);
         }
-
         #endregion
 
 
