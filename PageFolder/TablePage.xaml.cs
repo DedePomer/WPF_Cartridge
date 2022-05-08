@@ -31,7 +31,7 @@ namespace WPF_Cartridge.PageFolder
         #region Events
         private void BFill_Click(object sender, RoutedEventArgs e)
         {
-
+            ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Visible;
         }
 
         private void BNull_Click(object sender, RoutedEventArgs e)

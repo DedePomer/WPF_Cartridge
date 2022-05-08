@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         xmlns:local="clr-namespace:WPF_Cartridge"     
+        xmlns:uc ="clr-namespace:WPF_Cartridge.ControlsPage"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="WPF_Cartridge.MainWindow"     
         mc:Ignorable="d"
         Title="CatrigeProg" Height="600" Width="1500"
@@ -193,6 +194,10 @@
                 <Frame x:Name="Fmain"  NavigationUIVisibility="Hidden"/>
             </ScrollViewer>
         </Grid>
+
+        <uc:FillConrols x:Name="UT" Grid.Row="1" Grid.RowSpan="2" 
+                        Visibility="Collapsed" Panel.ZIndex="1">
+        </uc:FillConrols>
 
     </Grid>
 </Window>

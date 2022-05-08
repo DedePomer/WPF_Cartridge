@@ -29,6 +29,7 @@ namespace WPF_Cartridge
             InitializeComponent();
             ClassesFolder.BDClass.bd = new Model.AppContex();
             ChangeTheme('w');
+            ClassesFolder.MainWindowClass.mainWindow = this;
             Fmain.Navigate(new PageFolder.TablePage());
         }
 

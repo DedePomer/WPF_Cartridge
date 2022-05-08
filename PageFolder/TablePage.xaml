@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_Cartridge.PageFolder"
+      xmlns:uc ="clr-namespace:WPF_Cartridge.ControlsPage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TablePage">
@@ -21,11 +22,11 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Grid.Column="0">
-                                <TextBlock FontSize="15" Text="{Binding NNC, StringFormat=Название: {0}}"/>
+                                <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="15" Text="{Binding NNC, StringFormat=Название: {0}}"/>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="14" Text="{Binding countFull, StringFormat=Количество заполненных: {0}}"/>
+                                    <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countFull, StringFormat=Количество заполненных: {0}}"/>
                                     <TextBlock Text=" "/>
-                                    <TextBlock FontSize="14" Text="{Binding countEmpty, StringFormat=Количество пустых: {0}}"/>
+                                    <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countEmpty, StringFormat=Количество пустых: {0}}"/>
                                 </StackPanel>
                             </StackPanel>
 
@@ -44,11 +45,13 @@
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
-    
-    
+
+
     <Grid>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/> <!--место для сортировки-->
+            <RowDefinition Height="auto"/>
+            <!--место для сортировки-->
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -57,17 +60,9 @@
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"                     
                      ItemTemplate="{DynamicResource ProjectItem }"
                      HorizontalContentAlignment="Stretch">
-            </ItemsControl>     
-            
-            
+            </ItemsControl>
         </Grid>
-        
-        
-        
-        <!--<Border Width="100" Height="100" Background="Azure" BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
-                <Border Width="96" Height="96" Background="Azure"   Style="{StaticResource BorderClik}">
 
-                </Border>
-            </Border>-->
+
     </Grid>
 </Page>
