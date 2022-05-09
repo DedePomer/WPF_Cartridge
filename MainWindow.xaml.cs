@@ -30,6 +30,7 @@ namespace WPF_Cartridge
             ClassesFolder.BDClass.bd = new Model.AppContex();
             ChangeTheme('w');
             ClassesFolder.MainWindowClass.mainWindow = this;
+            ClassesFolder.ControlsClass.fillControl = UT;
             Fmain.Navigate(new PageFolder.TablePage());
         }
 
@@ -92,8 +93,7 @@ namespace WPF_Cartridge
             Application.Current.Resources.MergedDictionaries.Add(resourceDictTheme);
             Application.Current.Resources.MergedDictionaries.Add(resourceDictApp);
         }
+
         #endregion
-
-
     }
 }

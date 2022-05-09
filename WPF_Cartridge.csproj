@@ -80,7 +80,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ClassesFolder\BDClass.cs" />
+    <Compile Include="ClassesFolder\ControlsClass.cs" />
+    <Compile Include="ClassesFolder\IDCourierClass.cs" />
     <Compile Include="ClassesFolder\MainWindowClass.cs" />
+    <Compile Include="ClassesFolder\PagesClass.cs" />
     <Compile Include="ControlsPage\FillConrols.xaml.cs">
       <DependentUpon>FillConrols.xaml</DependentUpon>
     </Compile>
@@ -110,10 +113,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PageFolder\TableAddPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="PageFolder\TablePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,9 +133,6 @@
   <ItemGroup>
     <Compile Include="ClassesFolder\ParticalClasses\ParticalCatridge.cs" />
     <Compile Include="Model\Report.cs" />
-    <Compile Include="PageFolder\TableAddPage.xaml.cs">
-      <DependentUpon>TableAddPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageFolder\TablePage.xaml.cs">
       <DependentUpon>TablePage.xaml</DependentUpon>
     </Compile>

@@ -24,5 +24,81 @@ namespace WPF_Cartridge.ControlsPage
         {
             InitializeComponent();
         }
+
+        #region Events
+        private void BCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Collapsed;
+            ClassesFolder.IDCourierClass.ID = -1;
+        }
+        private void BSubmit_Click(object sender, RoutedEventArgs e)
+        {          
+            int id = ClassesFolder.IDCourierClass.ID;
+            if (id-1 < 0)
+            {
+                MessageBox.Show("Ошибка считывания id", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                try
+                {
+                    if (Convert.ToInt32(TBOXCount.Text) == 0)
+                    {
+                        MessageBox.Show("Поле не может быть равно 0", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
+                        if (cartridges[id - 1].countEmpty - Convert.ToInt32(TBOXCount.Text) < 0 && Convert.ToInt32(TBOXCount.Text) > 0)
+                        {
+                            MessageBox.Show("В поле не правильное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        else
+                        {
+                            List<Model.Report> reports = ClassesFolder.BDClass.bd.Reports.ToList();
+                            int indRoam = -1;
+                            for (int i = 0; i < reports.Count; i++)
+                            {
+                                if (reports[i+].title == cartridges[id-1].NNC)
+                                {
+                                    indRoam = i;
+                                }
+                            }
+                            cartridges[id - 1].countEmpty = cartridges[id - 1].countEmpty - Convert.ToInt32(TBOXCount.Text);
+                            if (indRoam != -1)
+                            {
+                                reports[indRoam].countSent += Convert.ToInt32(TBOXCount.Text);
+                            }
+                            else 
+                            {
+                                ClassesFolder.BDClass.bd.Reports.Add(new Model.Report
+                                {
+                                    title = cartridges[id - 1].NNC,
+                                    countDefects = 0,
+                                    price = 0,
+                                    priceAll = 0,
+                                    countSent = Convert.ToInt32(TBOXCount.Text),
+                                    countReceived = 0
+                                });
+                            }                            
+                            ClassesFolder.BDClass.bd.SaveChanges();
+                            ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
+                            MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                            ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Collapsed;
+                        }                       
+                    }
+                }
+                catch(Exception z)
+                {
+                    MessageBox.Show("Не правильные данные: "+z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        #endregion
+
+        #region Methods
+
+        #endregion
     }
 }

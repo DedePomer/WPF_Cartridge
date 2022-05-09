@@ -23,20 +23,24 @@
 
                             <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Grid.Column="0">
                                 <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="15" Text="{Binding NNC, StringFormat=Название: {0}}"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countFull, StringFormat=Количество заполненных: {0}}"/>
-                                    <TextBlock Text=" "/>
-                                    <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countEmpty, StringFormat=Количество пустых: {0}}"/>
-                                </StackPanel>
+                                <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countFull, StringFormat=Количество заполненных: {0}}"/>
+                                <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countEmpty, StringFormat=Количество пустых: {0}}"/>
+                                <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countUse, StringFormat=Количество используемых: {0}}"/>
                             </StackPanel>
 
                             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Column="1">
                                 <Button Margin="0 0 10 0" Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
                                         Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
-                                        Background="#C2FF90" Content="На заправку" Name="BFill" Click="BFill_Click"/> 
-                                <Button Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Background="#C2FF90" Content="На заправку" Name="BFill" Click="BFill_Click"/>
+                                <Button Margin="0 0 10 0" Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
                                         Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
                                         Background="#887CE3" Content="Стал пустым" Name="BNull" Click="BNull_Click"/>
+                                <Button Margin="0 0 10 0" Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
+                                        Background="#E3C76B" Content="Используется" Name="BUse" Click="BUse_Click"/>
+                                <Button Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
+                                        Background="Red" Content="Брак" Name="BDeffect" Click="BDeffect_Click"/>
                             </StackPanel>
 
                         </Grid>

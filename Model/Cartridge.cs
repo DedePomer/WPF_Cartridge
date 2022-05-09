@@ -16,18 +16,20 @@ namespace WPF_Cartridge.Model
         public string color { get; set; }
         public int countFull { get; set; }
         public int countEmpty { get; set; }
+        public int countUse { get; set; }
         #endregion
 
         #region Constructors
         public Cartridge() { }
         public Cartridge(int number, string name, 
-            string color, int countFull, int countEmpty)
+            string color, int countFull, int countEmpty , int countUse)
         {
             this.number = number;
             this.name = name;
             this.color = color;
             this.countFull = countFull;
             this.countEmpty = countEmpty;
+            this.countUse = countUse;
         }
         #endregion
     }

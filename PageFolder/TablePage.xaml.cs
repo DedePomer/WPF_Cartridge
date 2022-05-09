@@ -26,15 +26,27 @@ namespace WPF_Cartridge.PageFolder
         {
             InitializeComponent();
             LBTypeList.ItemsSource = StartList;
+            ClassesFolder.PagesClass.tablePage = this;
         }
 
         #region Events
         private void BFill_Click(object sender, RoutedEventArgs e)
         {
-            ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Visible;
+            
+            Button button = (Button)sender;
+            ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
+            ClassesFolder.ControlsClass.fillControl.TBOXCount.Text = StartList[Convert.ToInt32(button.Uid) - 1].countEmpty + "";
+            ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Visible;           
         }
-
         private void BNull_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void BUse_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void BDeffect_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -43,6 +55,5 @@ namespace WPF_Cartridge.PageFolder
         #region Methods
 
         #endregion
-
     }
 }
