@@ -199,5 +199,17 @@
                         Visibility="Collapsed" Panel.ZIndex="1">
         </uc:FillConrols>
 
+        <uc:NullConrol x:Name="UCnull" Grid.Row="1" Grid.RowSpan="2" 
+                        Visibility="Collapsed" Panel.ZIndex="1">
+        </uc:NullConrol>
+
+
+        <uc:UseControl x:Name="UCuse" Grid.Row="1" Grid.RowSpan="2" 
+                        Visibility="Collapsed" Panel.ZIndex="1">
+        </uc:UseControl>
+
+        <uc:DeffectedControls x:Name="UCDefect" Grid.Row="1" Grid.RowSpan="2" 
+                        Visibility="Collapsed" Panel.ZIndex="1">
+        </uc:DeffectedControls>
     </Grid>
 </Window>

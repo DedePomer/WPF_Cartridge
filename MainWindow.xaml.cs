@@ -31,6 +31,9 @@ namespace WPF_Cartridge
             ChangeTheme('w');
             ClassesFolder.MainWindowClass.mainWindow = this;
             ClassesFolder.ControlsClass.fillControl = UT;
+            ClassesFolder.ControlsClass.nullConrol = UCnull;
+            ClassesFolder.ControlsClass.useControl = UCuse;
+            ClassesFolder.ControlsClass.deffectedControls = UCDefect;
             Fmain.Navigate(new PageFolder.TablePage());
         }
 

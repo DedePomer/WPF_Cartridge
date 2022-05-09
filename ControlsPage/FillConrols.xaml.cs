@@ -50,7 +50,9 @@ namespace WPF_Cartridge.ControlsPage
                     else
                     {
                         List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
-                        if (cartridges[id - 1].countEmpty - Convert.ToInt32(TBOXCount.Text) < 0 && Convert.ToInt32(TBOXCount.Text) > 0)
+                        int a = Convert.ToInt32(TBOXCount.Text);
+                        int b = cartridges[id - 1].countEmpty - Convert.ToInt32(TBOXCount.Text);
+                        if ( b < 0 || a < 0)
                         {
                             MessageBox.Show("В поле не правильное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
@@ -60,7 +62,7 @@ namespace WPF_Cartridge.ControlsPage
                             int indRoam = -1;
                             for (int i = 0; i < reports.Count; i++)
                             {
-                                if (reports[i+].title == cartridges[id-1].NNC)
+                                if (reports[i].title == cartridges[id - 1].NNC)
                                 {
                                     indRoam = i;
                                 }
@@ -70,7 +72,7 @@ namespace WPF_Cartridge.ControlsPage
                             {
                                 reports[indRoam].countSent += Convert.ToInt32(TBOXCount.Text);
                             }
-                            else 
+                            else
                             {
                                 ClassesFolder.BDClass.bd.Reports.Add(new Model.Report
                                 {
@@ -81,17 +83,18 @@ namespace WPF_Cartridge.ControlsPage
                                     countSent = Convert.ToInt32(TBOXCount.Text),
                                     countReceived = 0
                                 });
-                            }                            
+                            }
                             ClassesFolder.BDClass.bd.SaveChanges();
                             ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
                             MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                             ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Collapsed;
-                        }                       
+                            ClassesFolder.IDCourierClass.ID = -1;
+                        }
                     }
                 }
-                catch(Exception z)
+                catch (Exception z)
                 {
-                    MessageBox.Show("Не правильные данные: "+z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Не правильные данные: " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

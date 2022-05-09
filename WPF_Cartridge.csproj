@@ -84,19 +84,33 @@
     <Compile Include="ClassesFolder\IDCourierClass.cs" />
     <Compile Include="ClassesFolder\MainWindowClass.cs" />
     <Compile Include="ClassesFolder\PagesClass.cs" />
+    <Compile Include="ControlsPage\DeffectedControls.xaml.cs">
+      <DependentUpon>DeffectedControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ControlsPage\FillConrols.xaml.cs">
       <DependentUpon>FillConrols.xaml</DependentUpon>
     </Compile>
     <Compile Include="ControlsPage\NullConrol.xaml.cs">
       <DependentUpon>NullConrol.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ControlsPage\UseControl.xaml.cs">
+      <DependentUpon>UseControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\AppContex.cs" />
     <Compile Include="Model\Cartridge.cs" />
+    <Page Include="ControlsPage\DeffectedControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ControlsPage\FillConrols.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ControlsPage\NullConrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ControlsPage\UseControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

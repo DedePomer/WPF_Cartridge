@@ -31,8 +31,7 @@ namespace WPF_Cartridge.PageFolder
 
         #region Events
         private void BFill_Click(object sender, RoutedEventArgs e)
-        {
-            
+        {           
             Button button = (Button)sender;
             ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
             ClassesFolder.ControlsClass.fillControl.TBOXCount.Text = StartList[Convert.ToInt32(button.Uid) - 1].countEmpty + "";
@@ -40,7 +39,10 @@ namespace WPF_Cartridge.PageFolder
         }
         private void BNull_Click(object sender, RoutedEventArgs e)
         {
-
+            Button button = (Button)sender;
+            ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
+            ClassesFolder.ControlsClass.nullConrol.TBOXCount.Text = StartList[Convert.ToInt32(button.Uid) - 1].countUse + "";
+            ClassesFolder.MainWindowClass.mainWindow.UCnull.Visibility = Visibility.Visible;
         }
         private void BUse_Click(object sender, RoutedEventArgs e)
         {
