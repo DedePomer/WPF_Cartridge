@@ -150,21 +150,23 @@
                     Orientation="Horizontal" HorizontalAlignment="Left" 
                     Margin="8 4 0 4" Grid.ColumnSpan="2">
 
-                <Button  ToolTip="Создание отчёта">
+
+
+                <Button ToolTip="Просмотр катриджей"  Name="BView" Click="BView_Click">
+                    <Border Background="Orange" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome Icon="AlignJustify" />
+                    </Border>
+                </Button>
+                
+                <Button  ToolTip="Создание отчёта" Name="BCreate" Click="BCreate_Click">
                     <Border Background="Green" ClipToBounds="True" Style="{DynamicResource BorderButton}">
                         <fa:ImageAwesome Icon="Book"/>
                     </Border>
                 </Button>
-
-                <Button ToolTip="Просмотр типов данных"  >
-                    <Border Background="Orange" ClipToBounds="True" Style="{DynamicResource BorderButton}">
-                        <fa:ImageAwesome Icon="Database" />
-                    </Border>
-                </Button>
-
-                <Button ToolTip="Последние заправленные" >
+                
+                <Button ToolTip="Изменение исходной таблицы" Name="BCatrigesTable" Click="BCatrigesTable_Click">
                     <Border Background="DarkRed" ClipToBounds="True" Style="{DynamicResource BorderButton}">
-                        <fa:ImageAwesome Icon="Hourglass" />
+                        <fa:ImageAwesome Icon="Table" />
                     </Border>
                 </Button>
             </StackPanel>

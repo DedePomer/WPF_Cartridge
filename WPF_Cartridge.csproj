@@ -127,6 +127,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PageFolder\MainTablePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageFolder\ReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageFolder\TablePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,6 +155,12 @@
   <ItemGroup>
     <Compile Include="ClassesFolder\ParticalClasses\ParticalCatridge.cs" />
     <Compile Include="Model\Report.cs" />
+    <Compile Include="PageFolder\MainTablePage.xaml.cs">
+      <DependentUpon>MainTablePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageFolder\ReportPage.xaml.cs">
+      <DependentUpon>ReportPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageFolder\TablePage.xaml.cs">
       <DependentUpon>TablePage.xaml</DependentUpon>
     </Compile>

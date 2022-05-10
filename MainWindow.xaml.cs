@@ -72,6 +72,18 @@ namespace WPF_Cartridge
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
+        private void BView_Click(object sender, RoutedEventArgs e)
+        {
+            Fmain.Navigate(new PageFolder.TablePage());
+        }
+        private void BCreate_Click(object sender, RoutedEventArgs e)
+        {
+            Fmain.Navigate(new PageFolder.ReportPage());
+        }
+        private void BCatrigesTable_Click(object sender, RoutedEventArgs e)
+        {
+            Fmain.Navigate(new PageFolder.MainTablePage());
+        }
         #endregion
 
         #region Methods
@@ -98,5 +110,7 @@ namespace WPF_Cartridge
         }
 
         #endregion
+
+
     }
 }

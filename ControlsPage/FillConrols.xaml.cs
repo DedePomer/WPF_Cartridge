@@ -71,6 +71,7 @@ namespace WPF_Cartridge.ControlsPage
                             if (indRoam != -1)
                             {
                                 reports[indRoam].countSent += Convert.ToInt32(TBOXCount.Text);
+                                reports[indRoam].countNotFill += Convert.ToInt32(TBOXCount.Text);
                             }
                             else
                             {
@@ -81,7 +82,8 @@ namespace WPF_Cartridge.ControlsPage
                                     price = 0,
                                     priceAll = 0,
                                     countSent = Convert.ToInt32(TBOXCount.Text),
-                                    countReceived = 0
+                                    countReceived = 0,
+                                    countNotFill = Convert.ToInt32(TBOXCount.Text)
                                 });
                             }
                             ClassesFolder.BDClass.bd.SaveChanges();
