@@ -37,7 +37,7 @@ namespace WPF_Cartridge.ControlsPage
             if (id - 1 < 0)
             {
                 MessageBox.Show("Ошибка считывания id", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Collapsed;
+                ClassesFolder.MainWindowClass.mainWindow.UCnull.Visibility = Visibility.Collapsed;
             }
             else
             {

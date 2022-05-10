@@ -46,11 +46,17 @@ namespace WPF_Cartridge.PageFolder
         }
         private void BUse_Click(object sender, RoutedEventArgs e)
         {
-
+            Button button = (Button)sender;
+            ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
+            ClassesFolder.ControlsClass.useControl.TBOXCount.Text = StartList[Convert.ToInt32(button.Uid) - 1].countFull + "";
+            ClassesFolder.MainWindowClass.mainWindow.UCuse.Visibility = Visibility.Visible;
         }
         private void BDeffect_Click(object sender, RoutedEventArgs e)
         {
-
+            Button button = (Button)sender;
+            ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
+            ClassesFolder.ControlsClass.deffectedControls.TBOXCount.Text = 0+ "";
+            ClassesFolder.MainWindowClass.mainWindow.UCDefect.Visibility = Visibility.Visible;
         }
         #endregion
 
