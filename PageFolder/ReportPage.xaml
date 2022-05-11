@@ -105,7 +105,7 @@
                 <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Количество отпарвленных" Binding="{Binding countSent}" Width="*"/>
                 <DataGridTextColumn FontSize="15" Header="Количество полученных" Binding="{Binding countReceived}" Width="*"/>
                 <DataGridTextColumn FontSize="15" Header="Цена" Binding="{Binding price}" Width="*"/>
-                <DataGridTextColumn FontSize="15" Header="Полная цена" Binding="{Binding priceAll }" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Полная цена" Binding="{Binding priceAll }" Width="*"/>
                 <DataGridTextColumn FontSize="15" Header="Количество деффектов" Binding="{Binding countDefects }" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

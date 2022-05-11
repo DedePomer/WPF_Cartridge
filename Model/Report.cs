@@ -17,10 +17,8 @@ namespace WPF_Cartridge.Model
         public float priceAll { get; set; }
         public int countReceived { get; set; }
         public int countDefects { get; set; }
-        public int countNotFill { get; set; }    
-        
+        public int countNotFill { get; set; }           
         public int idCantridges { get; set; }
-
         #endregion
 
         #region Constructors

@@ -42,14 +42,32 @@ namespace WPF_Cartridge.PageFolder
         {
             try
             {
-                if (VereficationSent())
+                int ind = VereficationSent();
+                if (ind == -1)
                 {
-                    VereficationReceived();
-                    ClassesFolder.BDClass.bd.SaveChanges();
-                    MessageBox.Show("Данные добавленны", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                } 
+                    ind = NegativeReceived();
+                    if (ind == -1)
+                    {
+                        ind = NegativePrice();
+                        if (ind == -1)
+                        {
+                            VereficationReceived();
+                            ClassesFolder.BDClass.bd.SaveChanges();
+                            MessageBox.Show("Данные добавленны", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                            DGReport.Items.Refresh();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
+                    else 
+                    {
+                        MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }                   
+                }
                 else
-                    MessageBox.Show("Количество полученных больше чем отправленных", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Количество полученных больше чем отправленных.\nСтрока с именем "+reports[ind].title ,"Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch
             {
@@ -61,13 +79,23 @@ namespace WPF_Cartridge.PageFolder
         {
             Model.Report cells = (Model.Report)e.Row.DataContext;
             if (cells.countReceived ==0 
-                && cells.countSent == 0 && cells.price == 0)
+                && cells.countSent == 0 && cells.price == 0)// делаем оранжевым если картридж их другого отчёта
             {
                 e.Row.Background = orangeColor;
             }
-            if (cells.price > 0 && cells.countSent > 0)
+            if (cells.price > 0 && cells.countSent > 0)// считаем полную сумму
             {
                 cells.priceAll = cells.price * cells.countSent;
+                ClassesFolder.BDClass.bd.SaveChanges();
+            }
+            if (cells.countReceived == 0
+                && cells.countSent == 0 && cells.price == 0
+                && cells.countDefects == 0)// убираем пустые строки
+            {
+                reports.Remove(cells);
+                DGReport.Items.Refresh();
+                ClassesFolder.BDClass.bd.Reports.Remove(cells);
+                ClassesFolder.BDClass.bd.SaveChanges();
             }
         }
         private void DGReport_Loaded(object sender, RoutedEventArgs e)
@@ -77,22 +105,18 @@ namespace WPF_Cartridge.PageFolder
         #endregion
 
         #region Methods
-        private bool VereficationSent()
+        private int VereficationSent()
         {
+            int ind = -1;
             for (int i = 0; i < reports.Count; i++)
             {
                 if (reports[i].countSent < reports[i].countReceived)
                 {
-                    return false;
-                }
-                else
-                {
-                    return true;
+                    return ind= i;
                 }
             }
-            return true;
+            return ind;
         }
-
         private void VereficationReceived()
         {
             for (int i = 0; i < reports.Count; i++)
@@ -113,7 +137,7 @@ namespace WPF_Cartridge.PageFolder
                     }
                     else
                     {
-                        MessageBox.Show("Нехватка заполненных катриджей id = "+ indRoam, "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);//протеститровать
+                        MessageBox.Show("Нехватка заполненных катриджей id = "+ indRoam, "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     reports[i].countNotFill = reports[i].countSent - reports[i].countReceived;
                     ClassesFolder.BDClass.bd.SaveChanges();                   
@@ -134,10 +158,30 @@ namespace WPF_Cartridge.PageFolder
                 }
             }
         }
-
-
-
-
+        private int NegativeReceived()
+        {
+            int ind = -1;
+            for (int i = 0; i < reports.Count; i++)
+            {
+                if (reports[i].countReceived <0)
+                {
+                    return ind = i;
+                }
+            }
+            return ind;
+        }
+        private int NegativePrice()
+        {
+            int ind = -1;
+            for (int i = 0; i < reports.Count; i++)
+            {
+                if (reports[i].price < 0)
+                {
+                    return ind = i;
+                }
+            }
+            return ind;
+        }
         #endregion
     }
 }

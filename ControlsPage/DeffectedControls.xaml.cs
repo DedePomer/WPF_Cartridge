@@ -51,40 +51,35 @@ namespace WPF_Cartridge.ControlsPage
                     {
                         List<Model.Report> reports = ClassesFolder.BDClass.bd.Reports.ToList();
                         List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
-                        int indRoam = -1;
-                        for (int i = 0; i < reports.Count; i++)
+                        int a = Convert.ToInt32(TBOXCount.Text);
+                        int b = cartridges[id - 1].countFull - Convert.ToInt32(TBOXCount.Text);
+                        if (b < 0 || a < 0) //проверка на то что поле пустое или количкство пустых катриджей больше чем значение поля
                         {
-                            if (reports[i].title == cartridges[id - 1].NNC)
-                            {
-                                indRoam = i;
-                            }
+                            MessageBox.Show("В поле не правильное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-                        if (indRoam != -1)
+                        else 
                         {
-                            if (((cartridges[id - 1].countFull + cartridges[id - 1].countUse + cartridges[id - 1].countEmpty) - reports[indRoam].countDefects) - Convert.ToInt32(TBOXCount.Text) < 0
-                                || Convert.ToInt32(TBOXCount.Text) < 0)
+                            int indRoam = -1;
+                            for (int i = 0; i < reports.Count; i++)
                             {
-                                MessageBox.Show("В поле не правильное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                if (reports[i].idCantridges == cartridges[id - 1].id)
+                                {
+                                    indRoam = i;
+                                }
+                            }
+                            if (indRoam != -1)
+                            {                                    
+                                    reports[indRoam].countDefects += Convert.ToInt32(TBOXCount.Text);
+                                    cartridges[id -1].countFull -= Convert.ToInt32(TBOXCount.Text);
+                                    ClassesFolder.BDClass.bd.SaveChanges();
+                                    ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
+                                    MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    ClassesFolder.MainWindowClass.mainWindow.UCDefect.Visibility = Visibility.Collapsed;
+                                    ClassesFolder.IDCourierClass.ID = -1;
                             }
                             else
                             {
-                                reports[indRoam].countDefects += Convert.ToInt32(TBOXCount.Text);
-                                ClassesFolder.BDClass.bd.SaveChanges();
-                                ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
-                                MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                                ClassesFolder.MainWindowClass.mainWindow.UCDefect.Visibility = Visibility.Collapsed;
-                                ClassesFolder.IDCourierClass.ID = -1;
-                            }
-                        }                           
-                        else
-                        {
-                            if ((cartridges[id - 1].countFull + cartridges[id - 1].countUse + cartridges[id - 1].countEmpty) - Convert.ToInt32(TBOXCount.Text) < 0
-                                || Convert.ToInt32(TBOXCount.Text) < 0)
-                            {
-                                MessageBox.Show("В поле не правильное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                            else
-                            {
+                                cartridges[id - 1].countFull -= Convert.ToInt32(TBOXCount.Text);
                                 ClassesFolder.BDClass.bd.Reports.Add(new Model.Report
                                 {
                                     title = cartridges[id - 1].NNC,
@@ -92,15 +87,17 @@ namespace WPF_Cartridge.ControlsPage
                                     price = 0,
                                     priceAll = 0,
                                     countSent = 0,
-                                    countReceived = 0
-                                });
-                                ClassesFolder.BDClass.bd.SaveChanges();
-                                ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
-                                MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                                ClassesFolder.MainWindowClass.mainWindow.UCDefect.Visibility = Visibility.Collapsed;
-                                ClassesFolder.IDCourierClass.ID = -1;
-                            }                          
-                        }
+                                    countReceived = 0,
+                                    idCantridges = Convert.ToInt32(TBOXCount.Text)
+
+                                }); 
+                                    ClassesFolder.BDClass.bd.SaveChanges();
+                                    ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
+                                    MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    ClassesFolder.MainWindowClass.mainWindow.UCDefect.Visibility = Visibility.Collapsed;
+                                    ClassesFolder.IDCourierClass.ID = -1;
+                            }
+                        }                        
                     }
                 }
                 catch (Exception z)

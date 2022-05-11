@@ -62,7 +62,7 @@ namespace WPF_Cartridge.ControlsPage
                             int indRoam = -1;
                             for (int i = 0; i < reports.Count; i++)
                             {
-                                if (reports[i].title == cartridges[id - 1].NNC)
+                                if (reports[i].idCantridges == cartridges[id - 1].id)
                                 {
                                     indRoam = i;
                                 }
@@ -72,6 +72,7 @@ namespace WPF_Cartridge.ControlsPage
                             {
                                 reports[indRoam].countSent += Convert.ToInt32(TBOXCount.Text);
                                 reports[indRoam].countNotFill += Convert.ToInt32(TBOXCount.Text);
+                                reports[indRoam].idCantridges = cartridges[id - 1].id;
                             }
                             else
                             {
@@ -83,7 +84,8 @@ namespace WPF_Cartridge.ControlsPage
                                     priceAll = 0,
                                     countSent = Convert.ToInt32(TBOXCount.Text),
                                     countReceived = 0,
-                                    countNotFill = Convert.ToInt32(TBOXCount.Text)
+                                    countNotFill = Convert.ToInt32(TBOXCount.Text),
+                                    idCantridges = cartridges[id - 1].id
                                 });
                             }
                             ClassesFolder.BDClass.bd.SaveChanges();
