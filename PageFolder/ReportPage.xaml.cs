@@ -31,7 +31,16 @@ namespace WPF_Cartridge.PageFolder
         public ReportPage()
         {
             InitializeComponent();
+            if (reports.Count == 0)
+            {
+                Gmain.Opacity = 0;
+            }
+            else
+            {
+                Gmain.Opacity = 1;
+            }
             DGReport.ItemsSource = reports;
+
         }
 
         #region Events
@@ -52,7 +61,8 @@ namespace WPF_Cartridge.PageFolder
                         ind = NegativePrice();
                         if (ind == -1)
                         {
-                            VereficationReceived();
+                            VereficationReceived(); 
+                            VereficationDefected();
                             ClassesFolder.BDClass.bd.SaveChanges();
                             MessageBox.Show("Данные добавленны", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                             DGReport.Items.Refresh();
@@ -111,12 +121,33 @@ namespace WPF_Cartridge.PageFolder
         }
         private void Bclose_Click(object sender, RoutedEventArgs e)
         {
+
             if (reportDel != null)
             {
-                reports.Remove(reportDel);
-                ClassesFolder.BDClass.bd.SaveChanges();
-                DGReport.Items.Refresh();
-                MessageBox.Show("Данные удалены ", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                try
+                {
+                    for (int i = 0; i < cartridges.Count; i++)
+                    {
+                        if (cartridges[i].id == reportDel.idCantridges)
+                        {
+                            cartridges[i].countEmpty += reportDel.countSent;
+                            cartridges[i].countFull += reportDel.countDefects;
+                        }
+                    }
+                    reports.Remove(reportDel);
+                    ClassesFolder.BDClass.bd.Reports.Remove(reportDel);
+                    ClassesFolder.BDClass.bd.SaveChanges();
+                    DGReport.Items.Refresh();
+                    if (reports.Count == 0)
+                    {
+                        Gmain.Opacity = 0;
+                    }
+                    MessageBox.Show("Данные удалены ", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception z)
+                {
+                    MessageBox.Show("Ошибка удаления: "+z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
             {
@@ -181,10 +212,39 @@ namespace WPF_Cartridge.PageFolder
         }
         private void VereficationDefected()
         {
-            for (int i = 0; i < reports.Count; i++)
+            try
             {
-                
+                for (int i = 0; i < reports.Count; i++)
+                {
+                    var cart = cartridges.Where(x => x.id == reports[i].idCantridges).ToList();
+                    if (reports[i].countDefects != reports[i].countNotDef)
+                    {
+                        if (reports[i].countDefects - reports[i].countNotDef < cart[0].countFull)
+                        {
+                            if (reports[i].countDefects > reports[i].countNotDef)
+                            {
+                                cartridges[cart[0].id - 1].countFull -= (reports[i].countDefects - reports[i].countNotDef);
+                                reports[i].countNotDef = reports[i].countDefects;
+                            }
+                            else
+                            {
+                                cartridges[cart[0].id - 1].countFull += (reports[i].countNotDef - reports[i].countDefects);
+                                reports[i].countNotDef = reports[i].countDefects;
+                            }
+                            ClassesFolder.BDClass.bd.SaveChanges();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Недостаточно заполненных катриджей для увеличение брака\nНаименование: " + reports[i].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
             }
+            catch (Exception z)
+            {
+                MessageBox.Show("Ошибка сохранения " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
         private int NegativeReceived()
         {

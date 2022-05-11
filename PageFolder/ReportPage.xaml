@@ -68,51 +68,58 @@
         </Style>
     </Page.Resources>-->
 
-    <Grid Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Foreground="{DynamicResource ButtonPanelcolor}">Создайте отчёт</TextBlock>
+        
+        <Grid Background="Transparent" Name="Gmain">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <StackPanel Background="Transparent" 
+
+
+            <Grid Grid.Row="0">
+                <StackPanel Background="Transparent" 
                     Orientation="Horizontal" HorizontalAlignment="Left" 
                     Margin="8 4 0 4" Grid.ColumnSpan="2">
 
-                <Button  ToolTip="Добавить данные" Name="Badd" Click="Badd_Click">
-                    <Border Background="GreenYellow" ClipToBounds="True" Style="{DynamicResource BorderButton}">
-                        <fa:ImageAwesome Icon="Plus" Width="14" Height="14"/>
-                    </Border>
-                </Button>
+                    <Button  ToolTip="Добавить данные" Name="Badd" Click="Badd_Click">
+                        <Border Background="GreenYellow" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                            <fa:ImageAwesome Icon="Plus" Width="14" Height="14"/>
+                        </Border>
+                    </Button>
 
-                <Button ToolTip="Создание отчёта"  Name="Bcreate" Click="Bcreate_Click">
-                    <Border Background="CadetBlue" ClipToBounds="True" Style="{DynamicResource BorderButton}">
-                        <fa:ImageAwesome Icon="Pencil"  Width="14" Height="14"/>
-                    </Border>
-                </Button>
+                    <Button ToolTip="Создание отчёта"  Name="Bcreate" Click="Bcreate_Click">
+                        <Border Background="CadetBlue" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                            <fa:ImageAwesome Icon="Pencil"  Width="14" Height="14"/>
+                        </Border>
+                    </Button>
 
-                <Button ToolTip="Создание отчёта"  Name="Bclose" Click="Bclose_Click" Visibility="Collapsed">
-                    <Border Background="Red" ClipToBounds="True" Style="{DynamicResource BorderButton}">
-                        <fa:ImageAwesome Icon="Close"  Width="14" Height="14"/>
-                    </Border>
-                </Button>
+                    <Button ToolTip="Создание отчёта"  Name="Bclose" Click="Bclose_Click" Visibility="Collapsed">
+                        <Border Background="Red" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                            <fa:ImageAwesome Icon="Close"  Width="14" Height="14"/>
+                        </Border>
+                    </Button>
 
-            </StackPanel>
-        </Grid>
-
-        
-        <DataGrid Grid.Row="1" x:Name="DGReport" 
+                </StackPanel>
+            </Grid>
+            <DataGrid Grid.Row="1" x:Name="DGReport" 
                   AutoGenerateColumns="False" CanUserAddRows="False" 
                   LoadingRow="DGReport_LoadingRow" Loaded="DGReport_Loaded" 
                   SelectionChanged="DGReport_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn  FontSize="15" Header="Название" Binding="{Binding title}" Width="*"/>
-                <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Количество отпарвленных" Binding="{Binding countSent}" Width="*"/>
-                <DataGridTextColumn FontSize="15" Header="Количество полученных" Binding="{Binding countReceived}" Width="*"/>
-                <DataGridTextColumn FontSize="15" Header="Цена" Binding="{Binding price}" Width="*"/>
-                <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Полная цена" Binding="{Binding priceAll }" Width="*"/>
-                <DataGridTextColumn FontSize="15" Header="Количество деффектов" Binding="{Binding countDefects }" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn  FontSize="15" Header="Название" Binding="{Binding title}" Width="*"/>
+                    <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Количество отпарвленных" Binding="{Binding countSent}" Width="*"/>
+                    <DataGridTextColumn FontSize="15" Header="Количество полученных" Binding="{Binding countReceived}" Width="*"/>
+                    <DataGridTextColumn FontSize="15" Header="Цена" Binding="{Binding price}" Width="*"/>
+                    <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Полная цена" Binding="{Binding priceAll }" Width="*"/>
+                    <DataGridTextColumn FontSize="15" Header="Количество деффектов" Binding="{Binding countDefects }" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
     </Grid>
+
+
 </Page>

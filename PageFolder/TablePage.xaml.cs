@@ -35,6 +35,7 @@ namespace WPF_Cartridge.PageFolder
             Button button = (Button)sender;
             ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
             ClassesFolder.ControlsClass.fillControl.TBOXCount.Text = StartList[Convert.ToInt32(button.Uid) - 1].countEmpty + "";
+            ClassesFolder.ControlsClass.fillControl.TBOXPrice.Text = StartList[Convert.ToInt32(button.Uid) - 1].price + "";
             ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Visible;           
         }
         private void BNull_Click(object sender, RoutedEventArgs e)

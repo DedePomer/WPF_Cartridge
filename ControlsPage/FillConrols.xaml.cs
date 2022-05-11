@@ -23,9 +23,18 @@ namespace WPF_Cartridge.ControlsPage
         public FillConrols()
         {
             InitializeComponent();
+            CBEnable.IsChecked = true;
         }
 
         #region Events
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            TBOXPrice.IsEnabled = false;
+        }
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            TBOXPrice.IsEnabled = true;
+        }
         private void BCancel_Click(object sender, RoutedEventArgs e)
         {
             ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Collapsed;
@@ -43,18 +52,18 @@ namespace WPF_Cartridge.ControlsPage
             {
                 try
                 {
-                    if (Convert.ToInt32(TBOXCount.Text) == 0)
+                    if (Convert.ToInt32(TBOXCount.Text) == 0 || Convert.ToInt32(TBOXPrice.Text) == 0)
                     {
-                        MessageBox.Show("Поле не может быть равно 0", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Поля не может быть равно 0", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
                         List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
                         int a = Convert.ToInt32(TBOXCount.Text);
                         int b = cartridges[id - 1].countEmpty - Convert.ToInt32(TBOXCount.Text);
-                        if ( b < 0 || a < 0)
+                        if ( b < 0 || a < 0 || Convert.ToInt32(TBOXPrice.Text)<0)
                         {
-                            MessageBox.Show("В поле не правильное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("В полях не правильное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         else
                         {
@@ -73,14 +82,17 @@ namespace WPF_Cartridge.ControlsPage
                                 reports[indRoam].countSent += Convert.ToInt32(TBOXCount.Text);
                                 reports[indRoam].countNotFill += Convert.ToInt32(TBOXCount.Text);
                                 reports[indRoam].idCantridges = cartridges[id - 1].id;
+                                cartridges[id - 1].price = Convert.ToInt32(TBOXPrice.Text);
+                                reports[indRoam].price = cartridges[id - 1].price;
                             }
                             else
                             {
+                                cartridges[id - 1].price = Convert.ToInt32(TBOXPrice.Text);
                                 ClassesFolder.BDClass.bd.Reports.Add(new Model.Report
                                 {
                                     title = cartridges[id - 1].NNC,
                                     countDefects = 0,
-                                    price = 0,
+                                    price = Convert.ToInt32(TBOXPrice.Text),
                                     priceAll = 0,
                                     countSent = Convert.ToInt32(TBOXCount.Text),
                                     countReceived = 0,
@@ -107,12 +119,13 @@ namespace WPF_Cartridge.ControlsPage
             ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Collapsed;
             ClassesFolder.IDCourierClass.ID = -1;
         }
+
         #endregion
 
         #region Methods
 
         #endregion
 
-
+        
     }
 }

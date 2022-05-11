@@ -34,6 +34,7 @@
                     <RowDefinition  Height="*"/>
                     <RowDefinition  Height="*"/>
                     <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
@@ -41,12 +42,16 @@
                 </Grid>
 
                 <TextBlock Grid.Row="1" Grid.Column="0">Введите количество катриджей:</TextBlock>
+                <CheckBox x:Name="CBEnable" Grid.Row="2" Grid.Column="1" 
+                          Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Margin="5">Залочить цену</CheckBox>
+                <TextBlock Grid.Row="3" Grid.Column="0">Введите цену:</TextBlock>
 
 
                 <TextBox Margin="5" Grid.Row="1" Grid.Column="1" x:Name="TBOXCount"></TextBox>
+                <TextBox Margin="5" Grid.Row="3" Grid.Column="1" x:Name="TBOXPrice"></TextBox>
 
 
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" 
                             HorizontalAlignment="Right" Margin="10 0">
                     <Button x:Name="BSubmit" FontSize="15" Template="{DynamicResource TPanelButton}" 
                                         Style="{DynamicResource VS2012WindowStyleTitleBarButton}"
