@@ -22,6 +22,7 @@ namespace WPF_Cartridge.PageFolder
     {
 
         private SolidColorBrush orangeColor = new SolidColorBrush(Colors.Orange);
+        private Model.Report reportDel = new Model.Report();
 
         List<Model.Report> reports = ClassesFolder.BDClass.bd.Reports.ToList();
         List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
@@ -102,6 +103,26 @@ namespace WPF_Cartridge.PageFolder
         {
             //ClassesFolder.BDClass.bd.SaveChanges();
         }
+        private void DGReport_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Model.Report cells = (Model.Report)DGReport.SelectedItem;
+            reportDel = cells;
+            Bclose.Visibility = Visibility.Visible;
+        }
+        private void Bclose_Click(object sender, RoutedEventArgs e)
+        {
+            if (reportDel != null)
+            {
+                reports.Remove(reportDel);
+                ClassesFolder.BDClass.bd.SaveChanges();
+                DGReport.Items.Refresh();
+                MessageBox.Show("Данные удалены ", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Ошибка удаления", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         #endregion
 
         #region Methods
@@ -126,7 +147,7 @@ namespace WPF_Cartridge.PageFolder
                     int indRoam = -1;
                     for (int y = 0; y < cartridges.Count; y++)
                     {
-                        if (reports[i].title == cartridges[y].NNC)
+                        if (reports[i].idCantridges == cartridges[y].id)
                         {
                             indRoam = y;
                         }
@@ -147,7 +168,7 @@ namespace WPF_Cartridge.PageFolder
                     int indRoam = -1;
                     for (int y = 0; y < cartridges.Count; y++)
                     {
-                        if (reports[i].title == cartridges[y].NNC)
+                        if (reports[i].idCantridges == cartridges[y].id)
                         {
                             indRoam = y;
                         }
@@ -156,6 +177,13 @@ namespace WPF_Cartridge.PageFolder
                     reports[i].countNotFill = reports[i].countSent - reports[i].countReceived;
                     ClassesFolder.BDClass.bd.SaveChanges();
                 }
+            }
+        }
+        private void VereficationDefected()
+        {
+            for (int i = 0; i < reports.Count; i++)
+            {
+                
             }
         }
         private int NegativeReceived()
@@ -183,5 +211,9 @@ namespace WPF_Cartridge.PageFolder
             return ind;
         }
         #endregion
+
+       
+
+
     }
 }

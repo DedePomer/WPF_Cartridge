@@ -91,7 +91,11 @@
                     </Border>
                 </Button>
 
-
+                <Button ToolTip="Создание отчёта"  Name="Bclose" Click="Bclose_Click" Visibility="Collapsed">
+                    <Border Background="Red" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome Icon="Close"  Width="14" Height="14"/>
+                    </Border>
+                </Button>
 
             </StackPanel>
         </Grid>
@@ -99,9 +103,10 @@
         
         <DataGrid Grid.Row="1" x:Name="DGReport" 
                   AutoGenerateColumns="False" CanUserAddRows="False" 
-                  LoadingRow="DGReport_LoadingRow" Loaded="DGReport_Loaded">
+                  LoadingRow="DGReport_LoadingRow" Loaded="DGReport_Loaded" 
+                  SelectionChanged="DGReport_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn FontSize="15" Header="Название" Binding="{Binding title}" Width="*"/>
+                <DataGridTextColumn  FontSize="15" Header="Название" Binding="{Binding title}" Width="*"/>
                 <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Количество отпарвленных" Binding="{Binding countSent}" Width="*"/>
                 <DataGridTextColumn FontSize="15" Header="Количество полученных" Binding="{Binding countReceived}" Width="*"/>
                 <DataGridTextColumn FontSize="15" Header="Цена" Binding="{Binding price}" Width="*"/>

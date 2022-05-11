@@ -17,12 +17,14 @@ namespace WPF_Cartridge.Model
         public int countFull { get; set; }
         public int countEmpty { get; set; }
         public int countUse { get; set; }
+        public float price { get; set; }
         #endregion
 
         #region Constructors
         public Cartridge() { }
         public Cartridge(int number, string name, 
-            string color, int countFull, int countEmpty , int countUse)
+            string color, int countFull, 
+            int countEmpty , int countUse, float price)
         {
             this.number = number;
             this.name = name;
@@ -30,6 +32,7 @@ namespace WPF_Cartridge.Model
             this.countFull = countFull;
             this.countEmpty = countEmpty;
             this.countUse = countUse;
+            this.price = price;
         }
         #endregion
     }

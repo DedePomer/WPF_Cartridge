@@ -19,13 +19,15 @@ namespace WPF_Cartridge.Model
         public int countDefects { get; set; }
         public int countNotFill { get; set; }           
         public int idCantridges { get; set; }
+        public int countNotDef { get; set; }
+
         #endregion
 
         #region Constructors
         public Report() { }
         public Report(string title, int countSent, 
             float price, int countReceived, int countDefects, 
-            float priceAll, int countNotFill, int idCantridges)
+            float priceAll, int countNotFill, int idCantridges, int countNotDef)
         {
             this.title = title;
             this.countSent = countSent;
@@ -35,6 +37,7 @@ namespace WPF_Cartridge.Model
             this.priceAll = priceAll;
             this.countNotFill = countNotFill;
             this.idCantridges = idCantridges;
+            this.countNotDef = countNotDef;
         }
         #endregion
     }

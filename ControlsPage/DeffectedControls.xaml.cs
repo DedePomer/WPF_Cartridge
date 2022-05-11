@@ -70,6 +70,7 @@ namespace WPF_Cartridge.ControlsPage
                             if (indRoam != -1)
                             {                                    
                                     reports[indRoam].countDefects += Convert.ToInt32(TBOXCount.Text);
+                                    reports[indRoam].countNotDef += Convert.ToInt32(TBOXCount.Text);
                                     cartridges[id -1].countFull -= Convert.ToInt32(TBOXCount.Text);
                                     ClassesFolder.BDClass.bd.SaveChanges();
                                     ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
@@ -88,8 +89,8 @@ namespace WPF_Cartridge.ControlsPage
                                     priceAll = 0,
                                     countSent = 0,
                                     countReceived = 0,
-                                    idCantridges = Convert.ToInt32(TBOXCount.Text)
-
+                                    idCantridges = Convert.ToInt32(TBOXCount.Text),
+                                    countNotDef = Convert.ToInt32(TBOXCount.Text)
                                 }); 
                                     ClassesFolder.BDClass.bd.SaveChanges();
                                     ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
