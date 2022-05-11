@@ -14,12 +14,11 @@
             </Style.Setters>
         </Style>
     </UserControl.Resources>
-    
-    
-    <Grid Background="#7f000000">
-        
 
 
+    <Grid>
+        <Grid x:Name="GControls" Background="#7f000000" MouseLeftButtonDown="GControls_MouseLeftButtonDown">
+        </Grid>
         <Border HorizontalAlignment="Center" VerticalAlignment="Center"
                 Background="{DynamicResource GrayColor}" Opacity="1"
                 Padding="5" CornerRadius="10">
@@ -59,9 +58,6 @@
                 </StackPanel>
             </Grid>
         </Border>
-        
-
-
-
     </Grid>
+   
 </UserControl>

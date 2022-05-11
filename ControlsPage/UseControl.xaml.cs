@@ -72,6 +72,11 @@ namespace WPF_Cartridge.ControlsPage
                 }
             }
         }
+        private void GControls_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ClassesFolder.MainWindowClass.mainWindow.UCuse.Visibility = Visibility.Collapsed;
+            ClassesFolder.IDCourierClass.ID = -1;
+        }
         #endregion
 
         #region Methods

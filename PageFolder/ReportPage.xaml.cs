@@ -139,12 +139,5 @@ namespace WPF_Cartridge.PageFolder
 
 
         #endregion
-
-        private void DGReport_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            DGReport.CancelEdit();
-            DGReport.CancelEdit();
-            DGReport.Items.Refresh();
-        }
     }
 }

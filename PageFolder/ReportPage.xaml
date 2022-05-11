@@ -99,14 +99,14 @@
         
         <DataGrid Grid.Row="1" x:Name="DGReport" 
                   AutoGenerateColumns="False" CanUserAddRows="False" 
-                  LoadingRow="DGReport_LoadingRow" Loaded="DGReport_Loaded" CellEditEnding="DGReport_CellEditEnding">
+                  LoadingRow="DGReport_LoadingRow" Loaded="DGReport_Loaded">
             <DataGrid.Columns>
-                <DataGridTextColumn FontSize="15" Header="Название" Binding="{Binding title , UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Количество отпарвленных" Binding="{Binding countSent, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                <DataGridTextColumn FontSize="15" Header="Количество полученных" Binding="{Binding countReceived, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                <DataGridTextColumn FontSize="15" Header="Цена" Binding="{Binding price , UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                <DataGridTextColumn FontSize="15" Header="Полная цена" Binding="{Binding priceAll , UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                <DataGridTextColumn FontSize="15" Header="Количество деффектов" Binding="{Binding countDefects , UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Название" Binding="{Binding title}" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Количество отпарвленных" Binding="{Binding countSent}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Количество полученных" Binding="{Binding countReceived}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Цена" Binding="{Binding price}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Полная цена" Binding="{Binding priceAll }" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Количество деффектов" Binding="{Binding countDefects }" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

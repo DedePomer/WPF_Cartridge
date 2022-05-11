@@ -109,10 +109,16 @@ namespace WPF_Cartridge.ControlsPage
                 }
             }
         }
-        #endregion
+        private void GControls_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ClassesFolder.MainWindowClass.mainWindow.UCDefect.Visibility = Visibility.Collapsed;
+            ClassesFolder.IDCourierClass.ID = -1;
+        }
 
-        #region Methods
+            #endregion
 
-        #endregion
+            #region Methods
+
+            #endregion
+        }
     }
-}
