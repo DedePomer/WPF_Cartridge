@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using fd = System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -46,15 +48,39 @@ namespace WPF_Cartridge.PageFolder
         #region Events
         private void Bcreate_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                fd.FolderBrowserDialog folderBrowserDialog = new fd.FolderBrowserDialog();
+                if (folderBrowserDialog.ShowDialog() == fd.DialogResult.OK)
+                {
+                    
+                }
+            }
+            catch (Exception z)
+            {
 
+            }
         }
 
         private void Bauto_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < reports.Count; i++)
             {
-                reports[i].
+                if (reports[i].countReceived == 0
+                && reports[i].countSent == 0 && reports[i].price == 0)
+                {
+                }
+                else if (reports[i].countReceived != reports[i].countSent)
+                {
+                    reports[i].countReceived = reports[i].countSent;
+                }           
             }
+            if (VereficationReceived())
+            {
+                MessageBox.Show("Данные добавленны", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            DGReport.Items.Refresh();
+            ClassesFolder.BDClass.bd.SaveChanges();
         }
 
             private void Badd_Click(object sender, RoutedEventArgs e)
@@ -84,21 +110,23 @@ namespace WPF_Cartridge.PageFolder
                         {
                             reports[ind].price = cartridges[reports[ind].idCantridges-1].price;
                             DGReport.Items.Refresh();
-                            MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                     else
                     {
                         reports[ind].countReceived = 0;
+                        VereficationReceived();
                         DGReport.Items.Refresh();
-                        MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
                     reports[ind].countReceived = 0;
+                    VereficationReceived();
                     DGReport.Items.Refresh();
-                    MessageBox.Show("Количество полученных больше чем отправленных.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Количество полученных больше чем отправленных.\nСтрока с именем " + reports[ind].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                    
             }
@@ -189,7 +217,7 @@ namespace WPF_Cartridge.PageFolder
         #endregion
 
         #region Methods
-        private int VereficationSent()
+        private int VereficationSent()// срабатывает когда количество полученных больше чем отправленных
         {
             int ind = -1;
             for (int i = 0; i < reports.Count; i++)
