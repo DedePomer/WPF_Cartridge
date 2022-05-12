@@ -48,7 +48,16 @@ namespace WPF_Cartridge.PageFolder
         {
 
         }
-        private void Badd_Click(object sender, RoutedEventArgs e)
+
+        private void Bauto_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < reports.Count; i++)
+            {
+                reports[i].
+            }
+        }
+
+            private void Badd_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -61,24 +70,37 @@ namespace WPF_Cartridge.PageFolder
                         ind = NegativePrice();
                         if (ind == -1)
                         {
-                            VereficationReceived(); 
-                            VereficationDefected();
-                            ClassesFolder.BDClass.bd.SaveChanges();
-                            MessageBox.Show("Данные добавленны", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                            DGReport.Items.Refresh();
+                            if (VereficationDefected())
+                            {
+                                if (VereficationReceived())
+                                {
+                                    ClassesFolder.BDClass.bd.SaveChanges();
+                                    MessageBox.Show("Данные добавленны", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    DGReport.Items.Refresh();
+                                }
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                            reports[ind].price = cartridges[reports[ind].idCantridges-1].price;
+                            DGReport.Items.Refresh();
+                            MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
-                    else 
+                    else
                     {
-                        MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }                   
+                        reports[ind].countReceived = 0;
+                        DGReport.Items.Refresh();
+                        MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
-                    MessageBox.Show("Количество полученных больше чем отправленных.\nСтрока с именем "+reports[ind].title ,"Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                {
+                    reports[ind].countReceived = 0;
+                    DGReport.Items.Refresh();
+                    MessageBox.Show("Количество полученных больше чем отправленных.\nСтрока с именем " + reports[ind].title, "Информация", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                   
             }
             catch
             {
@@ -93,6 +115,7 @@ namespace WPF_Cartridge.PageFolder
                 && cells.countSent == 0 && cells.price == 0)// делаем оранжевым если картридж их другого отчёта
             {
                 e.Row.Background = orangeColor;
+                e.Row.IsEnabled = false;
             }
             if (cells.price > 0 && cells.countSent > 0)// считаем полную сумму
             {
@@ -130,8 +153,17 @@ namespace WPF_Cartridge.PageFolder
                     {
                         if (cartridges[i].id == reportDel.idCantridges)
                         {
-                            cartridges[i].countEmpty += reportDel.countSent;
-                            cartridges[i].countFull += reportDel.countDefects;
+                            if (reportDel.countReceived > 0)
+                            {
+                                cartridges[i].countEmpty += (reportDel.countSent - reportDel.countReceived);
+                                cartridges[i].countFull += reportDel.countDefects;
+                            }
+                            else 
+                            {
+                                cartridges[i].countEmpty += reportDel.countSent;
+                                cartridges[i].countFull += reportDel.countDefects;
+                            }
+                            
                         }
                     }
                     reports.Remove(reportDel);
@@ -169,7 +201,7 @@ namespace WPF_Cartridge.PageFolder
             }
             return ind;
         }
-        private void VereficationReceived()
+        private bool VereficationReceived()
         {
             for (int i = 0; i < reports.Count; i++)
             {
@@ -190,6 +222,7 @@ namespace WPF_Cartridge.PageFolder
                     else
                     {
                         MessageBox.Show("Нехватка заполненных катриджей id = "+ indRoam, "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return false;
                     }
                     reports[i].countNotFill = reports[i].countSent - reports[i].countReceived;
                     ClassesFolder.BDClass.bd.SaveChanges();                   
@@ -209,18 +242,26 @@ namespace WPF_Cartridge.PageFolder
                     ClassesFolder.BDClass.bd.SaveChanges();
                 }
             }
+            return true;
         }
-        private void VereficationDefected()
+        private bool VereficationDefected()
         {
             try
             {
                 for (int i = 0; i < reports.Count; i++)
                 {
                     var cart = cartridges.Where(x => x.id == reports[i].idCantridges).ToList();
+                    if (reports[i].countDefects < 0)
+                    {
+                        MessageBox.Show("Есть отрицптельные значения\nНаименование: " + reports[i].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        reports[i].countDefects = reports[i].countNotDef;
+                        DGReport.Items.Refresh();
+                        return false;
+                    }
                     if (reports[i].countDefects != reports[i].countNotDef)
                     {
-                        if (reports[i].countDefects - reports[i].countNotDef < cart[0].countFull)
-                        {
+                            if (reports[i].countDefects - reports[i].countNotDef <= cart[0].countFull)
+                            {
                             if (reports[i].countDefects > reports[i].countNotDef)
                             {
                                 cartridges[cart[0].id - 1].countFull -= (reports[i].countDefects - reports[i].countNotDef);
@@ -236,13 +277,18 @@ namespace WPF_Cartridge.PageFolder
                         else
                         {
                             MessageBox.Show("Недостаточно заполненных катриджей для увеличение брака\nНаименование: " + reports[i].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            reports[i].countDefects = reports[i].countNotDef;
+                            DGReport.Items.Refresh();
+                            return false;
                         }
                     }
                 }
+                return true;
             }
             catch (Exception z)
             {
                 MessageBox.Show("Ошибка сохранения " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
             
         }
@@ -270,10 +316,11 @@ namespace WPF_Cartridge.PageFolder
             }
             return ind;
         }
+
+
+
         #endregion
 
-       
-
-
-    }
+}
+    
 }

@@ -84,15 +84,21 @@
                     Orientation="Horizontal" HorizontalAlignment="Left" 
                     Margin="8 4 0 4" Grid.ColumnSpan="2">
 
-                    <Button  ToolTip="Добавить данные" Name="Badd" Click="Badd_Click">
+                    <Button  ToolTip="Добавить в БД" Name="Badd" Click="Badd_Click">
                         <Border Background="GreenYellow" ClipToBounds="True" Style="{DynamicResource BorderButton}">
-                            <fa:ImageAwesome Icon="Plus" Width="14" Height="14"/>
+                            <fa:ImageAwesome Icon="Refresh" Width="14" Height="14"/>
                         </Border>
                     </Button>
 
                     <Button ToolTip="Создание отчёта"  Name="Bcreate" Click="Bcreate_Click">
                         <Border Background="CadetBlue" ClipToBounds="True" Style="{DynamicResource BorderButton}">
                             <fa:ImageAwesome Icon="Pencil"  Width="14" Height="14"/>
+                        </Border>
+                    </Button>
+
+                    <Button ToolTip="Добавить автоматически"  Name="Bauto" Click="Bauto_Click">
+                        <Border Background="Coral" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                            <fa:ImageAwesome Icon="Plus"  Width="14" Height="14"/>
                         </Border>
                     </Button>
 
