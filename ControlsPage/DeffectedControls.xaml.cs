@@ -89,7 +89,7 @@ namespace WPF_Cartridge.ControlsPage
                                     priceAll = 0,
                                     countSent = 0,
                                     countReceived = 0,
-                                    idCantridges = Convert.ToInt32(TBOXCount.Text),
+                                    idCantridges = cartridges[id - 1].id,
                                     countNotDef = Convert.ToInt32(TBOXCount.Text)
                                 }); 
                                     ClassesFolder.BDClass.bd.SaveChanges();

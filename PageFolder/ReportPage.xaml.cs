@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Diagnostics;
 
 namespace WPF_Cartridge.PageFolder
 {
@@ -53,12 +55,65 @@ namespace WPF_Cartridge.PageFolder
                 fd.FolderBrowserDialog folderBrowserDialog = new fd.FolderBrowserDialog();
                 if (folderBrowserDialog.ShowDialog() == fd.DialogResult.OK)
                 {
-                    
+                    string path = folderBrowserDialog.SelectedPath;
+                    path += "\\Отчёт.xlsx";
+                    Excel.Application xlApp = new Excel.Application();
+                    Excel.Workbook wbNewExcel = xlApp.Workbooks.Add();
+                    Excel.Worksheet wsNewExcel = wbNewExcel.Sheets[1];
+
+
+
+                    wsNewExcel.Range["A1"].Value = "Название"; // задаём заначения внутри ячеек
+                    wsNewExcel.Range["B1"].Value = "Количество отправленных";
+                    wsNewExcel.Range["C1"].Value = "Количество полученных";
+                    wsNewExcel.Range["D1"].Value = "Цена";
+                    wsNewExcel.Range["E1"].Value = "Общая цена";
+
+                    StyleEX(wsNewExcel, "A1"); //Добавляем стили ячейки
+                    StyleEX(wsNewExcel, "B1");
+                    StyleEX(wsNewExcel, "C1");
+                    StyleEX(wsNewExcel, "D1");
+                    StyleEX(wsNewExcel, "E1");
+                    wsNewExcel.Range["A1:E1"].Columns.ColumnWidth = 35; 
+
+                    wsNewExcel.Range["A1:E1"].Interior.ColorIndex = 22; // сеняем цвета 20 - светло голубой, 21 - тёмно бардовый, 22 - кораловый, 23 - ультрамариновый, 24 - серенивый, 25 - фиолетовый 
+                    wsNewExcel.Range["A1:E1"].Interior.PatternColorIndex = Excel.Constants.xlAutomatic;
+
+
+
+                    List <Model.Report> reportsEX = ClassesFolder.BDClass.bd.Reports.Where(x => x.countSent > 0).ToList();
+                    for (int i = 0; i < reportsEX.Count; i++)
+                    {
+                            wsNewExcel.Range["A" + (i + 2)].Value = reportsEX[i].title;
+                            wsNewExcel.Range["B" + (i + 2)].Value = reportsEX[i].countSent;
+                            wsNewExcel.Range["C" + (i + 2)].Value = reportsEX[i].countReceived;
+                            wsNewExcel.Range["D" + (i + 2)].Value = reportsEX[i].price;
+                            wsNewExcel.Range["E" + (i + 2)].FormulaLocal = "=B" + (i + 2) + "*D" + (i + 2) + "";                                           
+                    }
+
+                    List<Model.Report> reportsEXv = ClassesFolder.BDClass.bd.Reports.Where(x => x.countSent == 0 || x.countDefects > 0).ToList();// таблица с браком
+                    for (int i = 0; i < reportsEXv.Count; i++)
+                    {
+                        wsNewExcel.Range["A" + (i + reportsEX.Count+4)].Value = reportsEXv[i].title;
+                        wsNewExcel.Range["B" + (i + reportsEX.Count+4)].Value = reportsEXv[i].countDefects;
+                    }
+
+                    wsNewExcel.Range["A"+ (reportsEX.Count + 3)].Value = "Название"; 
+                    wsNewExcel.Range["B"+ (reportsEX.Count + 3)].Value = "Количество брака";
+                    StyleEX(wsNewExcel, "A" + (reportsEX.Count + 3));
+                    StyleEX(wsNewExcel, "B"+ (reportsEX.Count + 3));
+                    wsNewExcel.Range["A"+ (reportsEX.Count + 3) + ":B"+ (reportsEX.Count + 3)].Interior.ColorIndex = 24;
+                    wsNewExcel.Range["A1:F1"].Interior.PatternColorIndex = Excel.Constants.xlAutomatic;
+
+                    wbNewExcel.SaveAs(path);
+                    wbNewExcel.Close(true);
+                    xlApp.Quit();
+                    MessageBox.Show("Документ сохранён", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception z)
             {
-
+                MessageBox.Show("Ошибка формирования отчёта: "+z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -172,7 +227,7 @@ namespace WPF_Cartridge.PageFolder
         }
         private void Bclose_Click(object sender, RoutedEventArgs e)
         {
-
+            int a = 0;
             if (reportDel != null)
             {
                 try
@@ -183,26 +238,34 @@ namespace WPF_Cartridge.PageFolder
                         {
                             if (reportDel.countReceived > 0)
                             {
-                                cartridges[i].countEmpty += (reportDel.countSent - reportDel.countReceived);
+                                cartridges[i].countEmpty += (reportDel.countSent);
+                                cartridges[i].countFull -= reportDel.countReceived;
                                 cartridges[i].countFull += reportDel.countDefects;
                             }
-                            else 
+                            else if (reportDel.countReceived == 0)
                             {
                                 cartridges[i].countEmpty += reportDel.countSent;
                                 cartridges[i].countFull += reportDel.countDefects;
                             }
-                            
+                            else
+                            {
+                                MessageBox.Show("Отрицательное значение ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                a++;
+                            }                            
                         }
                     }
-                    reports.Remove(reportDel);
-                    ClassesFolder.BDClass.bd.Reports.Remove(reportDel);
-                    ClassesFolder.BDClass.bd.SaveChanges();
-                    DGReport.Items.Refresh();
-                    if (reports.Count == 0)
+                    if (a == 0)
                     {
-                        Gmain.Opacity = 0;
-                    }
-                    MessageBox.Show("Данные удалены ", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                        reports.Remove(reportDel);
+                        ClassesFolder.BDClass.bd.Reports.Remove(reportDel);
+                        ClassesFolder.BDClass.bd.SaveChanges();
+                        DGReport.Items.Refresh();
+                        if (reports.Count == 0)
+                        {
+                            Gmain.Opacity = 0;
+                        }
+                        MessageBox.Show("Данные удалены ", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }                    
                 }
                 catch (Exception z)
                 {
@@ -345,6 +408,21 @@ namespace WPF_Cartridge.PageFolder
             return ind;
         }
 
+
+        private void StyleEX(Excel.Worksheet wsNewExcel,string cell)
+        {
+            try
+            {
+                wsNewExcel.Range[cell].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                wsNewExcel.Range[cell].VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                wsNewExcel.Range[cell].Font.Size = 16;               
+            }
+            catch (Exception z)
+            {
+                MessageBox.Show("Ошибка: " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
 
 
         #endregion
