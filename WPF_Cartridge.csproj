@@ -85,6 +85,7 @@
     <Compile Include="ClassesFolder\IDCourierClass.cs" />
     <Compile Include="ClassesFolder\MainWindowClass.cs" />
     <Compile Include="ClassesFolder\PagesClass.cs" />
+    <Compile Include="ClassesFolder\SettingsClass.cs" />
     <Compile Include="ControlsPage\DeffectedControls.xaml.cs">
       <DependentUpon>DeffectedControls.xaml</DependentUpon>
     </Compile>

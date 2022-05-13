@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
+using System.Net.Mail;
+using System.Net;
 
 namespace WPF_Cartridge.PageFolder
 {
@@ -109,6 +111,21 @@ namespace WPF_Cartridge.PageFolder
                     wbNewExcel.Close(true);
                     xlApp.Quit();
                     MessageBox.Show("Документ сохранён", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                    switch (MessageBox.Show("Хотите получить тчёт на почту", "Сообщение", MessageBoxButton.YesNo, MessageBoxImage.Information))
+                    {
+                        case MessageBoxResult.Yes:
+                            if (MailSend(path))
+                            {
+                                MessageBox.Show("Документ отправлен", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                            break;
+                        case MessageBoxResult.No:
+                            break;
+                        default:
+                            break;
+                    }
+                    
+
                 }
             }
             catch (Exception z)
@@ -419,11 +436,36 @@ namespace WPF_Cartridge.PageFolder
             }
             catch (Exception z)
             {
-                MessageBox.Show("Ошибка: " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                
             }
 
         }
 
+
+        private bool MailSend(string path)
+        {
+            try
+            {
+                DateTime thisDay = DateTime.Today;
+                MailAddress from = new MailAddress("chirko_v_d@mail.ru", "Danila");
+                MailAddress to = new MailAddress("danilatchirckov@yandex.ru");
+                MailMessage m = new MailMessage(from, to);
+                m.Subject = "Отчёт за "+ thisDay.Date;
+                m.Body = "А тут могла быть ваша реклама";
+                m.Attachments.Add(new Attachment(path));
+                m.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
+                smtp.Credentials = new NetworkCredential("chirko_v_d@mail.ru", "Vp4zjzN5xMbitzkWcSy0");
+                smtp.EnableSsl = true;
+                smtp.Send(m);
+                return true; 
+            }
+            catch (Exception z)
+            {
+                MessageBox.Show("Ошибка: " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
 
         #endregion
 
