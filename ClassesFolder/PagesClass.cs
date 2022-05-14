@@ -8,6 +8,7 @@ namespace WPF_Cartridge.ClassesFolder
 {
     class PagesClass
     {
-        public static PageFolder.TablePage tablePage;  
+        public static PageFolder.TablePage tablePage;
+        public static PageFolder.MainTablePage mainTable;
     }
 }

@@ -20,6 +20,8 @@ namespace WPF_Cartridge.ControlsPage
     /// </summary>
     public partial class DeffectedControls : UserControl
     {
+
+        
         public DeffectedControls()
         {
             InitializeComponent();
@@ -33,7 +35,12 @@ namespace WPF_Cartridge.ControlsPage
         }
         private void BSubmit_Click(object sender, RoutedEventArgs e)
         {
+            List<Model.Report> reports = ClassesFolder.BDClass.bd.Reports.ToList();
+            List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
             int id = ClassesFolder.IDCourierClass.ID;
+            List<Model.Cartridge> currentCatridges = cartridges.Where(x => x.id == id).ToList();
+            Model.Cartridge currentCatridge = currentCatridges[0];
+
             if (id - 1 < 0)
             {
                 MessageBox.Show("Ошибка считывания id", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -49,10 +56,9 @@ namespace WPF_Cartridge.ControlsPage
                     }
                     else
                     {
-                        List<Model.Report> reports = ClassesFolder.BDClass.bd.Reports.ToList();
-                        List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
+                        
                         int a = Convert.ToInt32(TBOXCount.Text);
-                        int b = cartridges[id - 1].countFull - Convert.ToInt32(TBOXCount.Text);
+                        int b = currentCatridge.countFull - Convert.ToInt32(TBOXCount.Text);
                         if (b < 0 || a < 0) //проверка на то что поле пустое или количкство пустых катриджей больше чем значение поля
                         {
                             MessageBox.Show("В поле не правильное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -62,7 +68,7 @@ namespace WPF_Cartridge.ControlsPage
                             int indRoam = -1;
                             for (int i = 0; i < reports.Count; i++)
                             {
-                                if (reports[i].idCantridges == cartridges[id - 1].id)
+                                if (reports[i].idCantridges == currentCatridge.id)
                                 {
                                     indRoam = i;
                                 }
@@ -71,7 +77,7 @@ namespace WPF_Cartridge.ControlsPage
                             {                                    
                                     reports[indRoam].countDefects += Convert.ToInt32(TBOXCount.Text);
                                     reports[indRoam].countNotDef += Convert.ToInt32(TBOXCount.Text);
-                                    cartridges[id -1].countFull -= Convert.ToInt32(TBOXCount.Text);
+                                    currentCatridge.countFull -= Convert.ToInt32(TBOXCount.Text);
                                     ClassesFolder.BDClass.bd.SaveChanges();
                                     ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
                                     MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -83,13 +89,13 @@ namespace WPF_Cartridge.ControlsPage
                                 cartridges[id - 1].countFull -= Convert.ToInt32(TBOXCount.Text);
                                 ClassesFolder.BDClass.bd.Reports.Add(new Model.Report
                                 {
-                                    title = cartridges[id - 1].NNC,
+                                    title = currentCatridge.NNC,
                                     countDefects = Convert.ToInt32(TBOXCount.Text),
                                     price = 0,
                                     priceAll = 0,
                                     countSent = 0,
                                     countReceived = 0,
-                                    idCantridges = cartridges[id - 1].id,
+                                    idCantridges = currentCatridge.id,
                                     countNotDef = Convert.ToInt32(TBOXCount.Text)
                                 }); 
                                     ClassesFolder.BDClass.bd.SaveChanges();

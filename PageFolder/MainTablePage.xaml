@@ -4,11 +4,55 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_Cartridge.PageFolder"
+      xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainTablePage">
 
-    <Grid>
-        
+        <Grid Background="Transparent" Name="Gmain">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0">
+            <StackPanel Background="Transparent" 
+                    Orientation="Horizontal" HorizontalAlignment="Left" 
+                    Margin="8 4 0 4" Grid.ColumnSpan="2">
+
+                <Button  ToolTip="Сохранить изменения" Name="Badd" Click="Badd_Click">
+                    <Border Background="GreenYellow" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome Icon="Refresh" Width="14" Height="14"/>
+                    </Border>
+                </Button>
+
+                <Button ToolTip="Добавить строку"  Name="Bstroke" Click="Bstroke_Click">
+                    <Border Background="Coral" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome Icon="Plus"  Width="14" Height="14"/>
+                    </Border>
+                </Button>
+
+                <Button ToolTip="Удалить строку"  Name="Bclose" Click="Bclose_Click"  Visibility="Collapsed">
+                    <Border Background="Red" ClipToBounds="True" Style="{DynamicResource BorderButton}">
+                        <fa:ImageAwesome Icon="Close"  Width="14" Height="14"/>
+                    </Border>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <DataGrid Grid.Row="1" x:Name="DGCatridges" 
+                  AutoGenerateColumns="False" CanUserAddRows="False"                    
+                  SelectionChanged="DGCatridges_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn  FontSize="15" Header="Номер" Binding="{Binding number}" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Имя" Binding="{Binding name}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Цвет" Binding="{Binding color}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Количество на складе" Binding="{Binding countFull}" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Количество пустых" Binding="{Binding countEmpty }" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Количество использующихся" Binding="{Binding countUse }" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Дефолтная цена" Binding="{Binding price }" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

@@ -86,6 +86,9 @@
     <Compile Include="ClassesFolder\MainWindowClass.cs" />
     <Compile Include="ClassesFolder\PagesClass.cs" />
     <Compile Include="ClassesFolder\SettingsClass.cs" />
+    <Compile Include="ControlsPage\AddControls.xaml.cs">
+      <DependentUpon>AddControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ControlsPage\DeffectedControls.xaml.cs">
       <DependentUpon>DeffectedControls.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,10 @@
     </Compile>
     <Compile Include="Model\AppContex.cs" />
     <Compile Include="Model\Cartridge.cs" />
+    <Page Include="ControlsPage\AddControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ControlsPage\DeffectedControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

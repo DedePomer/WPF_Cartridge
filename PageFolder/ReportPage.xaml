@@ -102,7 +102,7 @@
                         </Border>
                     </Button>
 
-                    <Button ToolTip="Создание отчёта"  Name="Bclose" Click="Bclose_Click" Visibility="Collapsed">
+                    <Button ToolTip="Удалить строку"  Name="Bclose" Click="Bclose_Click" Visibility="Collapsed">
                         <Border Background="Red" ClipToBounds="True" Style="{DynamicResource BorderButton}">
                             <fa:ImageAwesome Icon="Close"  Width="14" Height="14"/>
                         </Border>

@@ -20,6 +20,7 @@ namespace WPF_Cartridge.ControlsPage
     /// </summary>
     public partial class NullConrol : UserControl
     {
+        
         public NullConrol()
         {
             InitializeComponent();
@@ -33,7 +34,10 @@ namespace WPF_Cartridge.ControlsPage
         }
         private void BSubmit_Click(object sender, RoutedEventArgs e)
         {
+            List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
             int id = ClassesFolder.IDCourierClass.ID;
+            List<Model.Cartridge> currentCatridges = cartridges.Where(x => x.id == id).ToList();
+            Model.Cartridge currentCatridge = currentCatridges[0];
             if (id - 1 < 0)
             {
                 MessageBox.Show("Ошибка считывания id", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -49,15 +53,15 @@ namespace WPF_Cartridge.ControlsPage
                     }
                     else
                     {
-                        List<Model.Cartridge> cartridges = ClassesFolder.BDClass.bd.Cartridges.ToList();
-                        if (cartridges[id - 1].countUse - Convert.ToInt32(TBOXCount.Text) < 0 || Convert.ToInt32(TBOXCount.Text) < 0)
+                        
+                        if (currentCatridge.countUse - Convert.ToInt32(TBOXCount.Text) < 0 || Convert.ToInt32(TBOXCount.Text) < 0)
                         {
                             MessageBox.Show("В поле не правильное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         else
                         {
-                            cartridges[id - 1].countUse = cartridges[id - 1].countUse - Convert.ToInt32(TBOXCount.Text);
-                            cartridges[id - 1].countEmpty += Convert.ToInt32(TBOXCount.Text);
+                            currentCatridge.countUse = currentCatridge.countUse - Convert.ToInt32(TBOXCount.Text);
+                            currentCatridge.countEmpty += Convert.ToInt32(TBOXCount.Text);
                             ClassesFolder.BDClass.bd.SaveChanges();
                             ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
                             MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);

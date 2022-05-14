@@ -34,28 +34,32 @@ namespace WPF_Cartridge.PageFolder
         {           
             Button button = (Button)sender;
             ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
-            ClassesFolder.ControlsClass.fillControl.TBOXCount.Text = StartList[Convert.ToInt32(button.Uid) - 1].countEmpty + "";
-            ClassesFolder.ControlsClass.fillControl.TBOXPrice.Text = StartList[Convert.ToInt32(button.Uid) - 1].price + "";
+            List<Model.Cartridge> currentList = StartList.Where(x => x.id == Convert.ToInt32(button.Uid)).ToList();
+            ClassesFolder.ControlsClass.fillControl.TBOXCount.Text = currentList[0].countEmpty + "";
+            ClassesFolder.ControlsClass.fillControl.TBOXPrice.Text = currentList[0].price + "";
             ClassesFolder.MainWindowClass.mainWindow.UT.Visibility = Visibility.Visible;           
         }
         private void BNull_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
-            ClassesFolder.ControlsClass.nullConrol.TBOXCount.Text = StartList[Convert.ToInt32(button.Uid) - 1].countUse + "";
+            List<Model.Cartridge> currentList = StartList.Where(x => x.id == Convert.ToInt32(button.Uid)).ToList();
+            ClassesFolder.ControlsClass.nullConrol.TBOXCount.Text = currentList[0].countUse + "";
             ClassesFolder.MainWindowClass.mainWindow.UCnull.Visibility = Visibility.Visible;
         }
         private void BUse_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
-            ClassesFolder.ControlsClass.useControl.TBOXCount.Text = StartList[Convert.ToInt32(button.Uid) - 1].countFull + "";
+            List<Model.Cartridge> currentList = StartList.Where(x => x.id == Convert.ToInt32(button.Uid)).ToList();
+            ClassesFolder.ControlsClass.useControl.TBOXCount.Text = currentList[0].countFull + "";
             ClassesFolder.MainWindowClass.mainWindow.UCuse.Visibility = Visibility.Visible;
         }
         private void BDeffect_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             ClassesFolder.IDCourierClass.ID = Convert.ToInt32(button.Uid);
+            List<Model.Cartridge> currentList = StartList.Where(x => x.id == Convert.ToInt32(button.Uid)).ToList();
             ClassesFolder.ControlsClass.deffectedControls.TBOXCount.Text = 0+ "";
             ClassesFolder.MainWindowClass.mainWindow.UCDefect.Visibility = Visibility.Visible;
         }

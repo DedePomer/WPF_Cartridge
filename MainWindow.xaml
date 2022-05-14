@@ -213,5 +213,9 @@
         <uc:DeffectedControls x:Name="UCDefect" Grid.Row="1" Grid.RowSpan="2" 
                         Visibility="Collapsed" Panel.ZIndex="1">
         </uc:DeffectedControls>
+
+        <uc:AddControls x:Name="UCAdd" Grid.Row="1" Grid.RowSpan="2" 
+                        Visibility="Collapsed" Panel.ZIndex="1">
+        </uc:AddControls>
     </Grid>
 </Window>
