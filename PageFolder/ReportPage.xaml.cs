@@ -46,7 +46,6 @@ namespace WPF_Cartridge.PageFolder
                 Gmain.Opacity = 1;
             }
             DGReport.ItemsSource = reports;
-
         }
 
         #region Events
@@ -54,7 +53,48 @@ namespace WPF_Cartridge.PageFolder
         {
             try
             {
-                fd.FolderBrowserDialog folderBrowserDialog = new fd.FolderBrowserDialog();
+                int ind = VereficationSent(); //сохранение перед формированием отчёта
+                if (ind == -1)
+                {
+                    ind = NegativeReceived();
+                    if (ind == -1)
+                    {
+                        ind = NegativePrice();
+                        if (ind == -1)
+                        {
+                            if (VereficationDefected())
+                            {
+                                if (VereficationReceived())
+                                {
+                                    ClassesFolder.BDClass.bd.SaveChanges();
+                                    DGReport.Items.Refresh();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            reports[ind].price = cartridges[reports[ind].idCantridges - 1].price;
+                            DGReport.Items.Refresh();
+                            MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    else
+                    {
+                        reports[ind].countReceived = 0;
+                        VereficationReceived();
+                        DGReport.Items.Refresh();
+                        MessageBox.Show("Есть отрицательные значения.\nСтрока с именем " + reports[ind].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    reports[ind].countReceived = 0;
+                    VereficationReceived();
+                    DGReport.Items.Refresh();
+                    MessageBox.Show("Количество полученных больше чем отправленных.\nСтрока с именем " + reports[ind].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            fd.FolderBrowserDialog folderBrowserDialog = new fd.FolderBrowserDialog();
                 if (folderBrowserDialog.ShowDialog() == fd.DialogResult.OK)
                 {
                     string path = folderBrowserDialog.SelectedPath;
@@ -90,8 +130,11 @@ namespace WPF_Cartridge.PageFolder
                             wsNewExcel.Range["B" + (i + 2)].Value = reportsEX[i].countSent;
                             wsNewExcel.Range["C" + (i + 2)].Value = reportsEX[i].countReceived;
                             wsNewExcel.Range["D" + (i + 2)].Value = reportsEX[i].price;
-                            wsNewExcel.Range["E" + (i + 2)].FormulaLocal = "=B" + (i + 2) + "*D" + (i + 2) + "";                                           
+                            wsNewExcel.Range["E" + (i + 2)].Value = reportsEX[i].priceAll;                                           
                     }
+
+                    wsNewExcel.Range["E" + (reportsEX.Count + 2)].FormulaLocal = "=СУММ(E2:E"+ (reportsEX.Count + 1)+")";
+                    wsNewExcel.Range["E" + (reportsEX.Count + 2)].Borders.Weight = Excel.XlBorderWeight.xlThick;
 
                     List<Model.Report> reportsEXv = ClassesFolder.BDClass.bd.Reports.Where(x => x.countSent == 0 || x.countDefects > 0).ToList();// таблица с браком
                     for (int i = 0; i < reportsEXv.Count; i++)
@@ -111,7 +154,20 @@ namespace WPF_Cartridge.PageFolder
                     wbNewExcel.Close(true);
                     xlApp.Quit();
                     MessageBox.Show("Документ сохранён", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                    switch (MessageBox.Show("Хотите получить тчёт на почту", "Сообщение", MessageBoxButton.YesNo, MessageBoxImage.Information))
+
+                    // очистка интерфейса
+                    ClassesFolder.BDClass.bd.Reports.RemoveRange(reports);
+                    ClassesFolder.BDClass.bd.SaveChanges();
+                    reports = ClassesFolder.BDClass.bd.Reports.ToList();
+                    DGReport.Items.Refresh();
+                    if (reports.Count == 0)
+                    {
+                        Gmain.Opacity = 0;
+                    }
+
+                    DGReport.ItemsSource = reports;
+
+                    switch (MessageBox.Show("Хотите получить отчёт на почту", "Сообщение", MessageBoxButton.YesNo, MessageBoxImage.Information))
                     {
                         case MessageBoxResult.Yes:
                             if (MailSend(path))
@@ -124,7 +180,7 @@ namespace WPF_Cartridge.PageFolder
                         default:
                             break;
                     }
-                    
+
 
                 }
             }
@@ -436,7 +492,7 @@ namespace WPF_Cartridge.PageFolder
             }
             catch (Exception z)
             {
-                
+                MessageBox.Show("Ошибка применения стиля  " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
