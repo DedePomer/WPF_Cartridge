@@ -98,6 +98,9 @@
     <Compile Include="ControlsPage\NullConrol.xaml.cs">
       <DependentUpon>NullConrol.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ControlsPage\SettingsControls.xaml.cs">
+      <DependentUpon>SettingsControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ControlsPage\UseControl.xaml.cs">
       <DependentUpon>UseControl.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ControlsPage\NullConrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ControlsPage\SettingsControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

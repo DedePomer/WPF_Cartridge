@@ -173,18 +173,11 @@
 
             <StackPanel Background="Transparent" Orientation="Horizontal" 
                      HorizontalAlignment="Right" Margin="0 4 8 4" Grid.Column="1">
-                <Button x:Name="BWhiteTheme" ToolTip="Светлая тема"                        
-                         Click="BWhiteTheme_Click">
-                    <Border Padding="2" Background="{DynamicResource BasicColor}" BorderBrush="{DynamicResource ButtonPanelcolor}" BorderThickness="1"
+                <Button x:Name="BSettings" ToolTip="Настройки"                        
+                         Click="BSettings_Click">
+                    <Border Padding="2" Background="Aqua" 
                             Style="{DynamicResource BorderButton}">
-                        <fa:ImageAwesome  Icon="SunOutline" Foreground="{DynamicResource ButtonPanelcolor}"/>
-                    </Border>
-                </Button>
-                <Button x:Name="BBlackTheme" ToolTip="Тёмная тема"
-                        
-                         Click="BBlackTheme_Click">
-                    <Border Background="{DynamicResource ButtonPanelcolor}" Style="{DynamicResource BorderButton}">
-                        <fa:ImageAwesome Icon="MoonOutline" Foreground="{DynamicResource BasicColor}"/>
+                        <fa:ImageAwesome  Icon="Gear" />
                     </Border>
                 </Button>
             </StackPanel>
@@ -217,5 +210,9 @@
         <uc:AddControls x:Name="UCAdd" Grid.Row="1" Grid.RowSpan="2" 
                         Visibility="Collapsed" Panel.ZIndex="1">
         </uc:AddControls>
+        
+        <uc:SettingsControls x:Name="UCSettings" Grid.Row="1" Grid.RowSpan="2" 
+                        Visibility="Collapsed" Panel.ZIndex="1">
+        </uc:SettingsControls>
     </Grid>
 </Window>

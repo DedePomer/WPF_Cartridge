@@ -39,21 +39,10 @@ namespace WPF_Cartridge
 
 
         #region Events
-        private void BBlackTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeTheme('d');
-        }
-
-        private void BWhiteTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeTheme('w');
-        }
-
         private void BClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
-
         private void BWindow_Click(object sender, RoutedEventArgs e)
         {
             if (!mainWindowState)
@@ -67,7 +56,6 @@ namespace WPF_Cartridge
                 mainWindowState = false;
             }
         }
-
         private void BCollapse_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
@@ -83,6 +71,12 @@ namespace WPF_Cartridge
         private void BCatrigesTable_Click(object sender, RoutedEventArgs e)
         {
             Fmain.Navigate(new PageFolder.MainTablePage());
+        }
+
+
+        private void BSettings_Click(object sender, RoutedEventArgs e)
+        {
+            ClassesFolder.MainWindowClass.mainWindow.UCSettings.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -102,15 +96,13 @@ namespace WPF_Cartridge
             // добавляем темы в ресурсы приложения
             var uriTheme = new Uri(pathTheme, UriKind.Relative);
             var commApp = new Uri(commPath, UriKind.Relative);
-            Application.Current.Resources.Clear(); 
+            Application.Current.Resources.Clear();
             ResourceDictionary resourceDictTheme = Application.LoadComponent(uriTheme) as ResourceDictionary;
             ResourceDictionary resourceDictApp = Application.LoadComponent(commApp) as ResourceDictionary;
             Application.Current.Resources.MergedDictionaries.Add(resourceDictTheme);
             Application.Current.Resources.MergedDictionaries.Add(resourceDictApp);
         }
-
         #endregion
-
 
     }
 }
