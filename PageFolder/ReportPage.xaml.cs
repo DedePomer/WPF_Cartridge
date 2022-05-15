@@ -94,7 +94,27 @@ namespace WPF_Cartridge.PageFolder
                     MessageBox.Show("Количество полученных больше чем отправленных.\nСтрока с именем " + reports[ind].title, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-            fd.FolderBrowserDialog folderBrowserDialog = new fd.FolderBrowserDialog();
+                bool mailS = false;
+
+                switch (MessageBox.Show("Хотите получить отчёт на почту", "Сообщение", MessageBoxButton.YesNo, MessageBoxImage.Information))
+                {
+                    case MessageBoxResult.Yes:
+                        if (ClassesFolder.SettingsClass.mail == "NULL")
+                        {
+                            MessageBox.Show("Укажите в настройках почту по умолчанию", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                            mailS = false;
+                        }
+                        mailS = true;
+                        break;
+                    case MessageBoxResult.No:
+                        mailS = false;
+                        break;
+                    default:
+                        mailS = false;
+                        break;
+                }
+
+                fd.FolderBrowserDialog folderBrowserDialog = new fd.FolderBrowserDialog();
                 if (folderBrowserDialog.ShowDialog() == fd.DialogResult.OK)
                 {
                     string path = folderBrowserDialog.SelectedPath;
@@ -167,19 +187,14 @@ namespace WPF_Cartridge.PageFolder
 
                     DGReport.ItemsSource = reports;
 
-                    switch (MessageBox.Show("Хотите получить отчёт на почту", "Сообщение", MessageBoxButton.YesNo, MessageBoxImage.Information))
+                    if (mailS)
                     {
-                        case MessageBoxResult.Yes:
-                            if (MailSend(path))
-                            {
-                                MessageBox.Show("Документ отправлен", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                            }
-                            break;
-                        case MessageBoxResult.No:
-                            break;
-                        default:
-                            break;
+                                if (MailSend(path))
+                                {
+                                    MessageBox.Show("Документ отправлен по адрессу " + ClassesFolder.SettingsClass.mail, "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }                       
                     }
+                    
 
 
                 }
