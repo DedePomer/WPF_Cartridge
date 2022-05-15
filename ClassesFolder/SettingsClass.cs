@@ -12,7 +12,7 @@ namespace WPF_Cartridge.ClassesFolder
     {
 
         private static string bufStr = "";
-        private static string fileName = "Settings.txt";
+        public static string fileName = "Settings.txt";
         private static string[] masStr;
 
         public static string mail {
@@ -20,23 +20,15 @@ namespace WPF_Cartridge.ClassesFolder
             {
                 if (Reader())
                 {
-                    if (Separatore())
-                    {
-                        return masStr[0];
-                    }                    
+                    return masStr[0];                   
                 }
                 return "";
             }
 
             set
             {
-                //bufStr = ":4di-bor@ro.ru\n:White";
-                //Writer();
                 masStr[0] = value;
-                if (Collectre())
-                {
-                    Writer();
-                }
+                Writer(masStr);
             }
         }
         public static string theme
@@ -51,16 +43,13 @@ namespace WPF_Cartridge.ClassesFolder
             }
 
             set
-            {               
+            {
                 masStr[1] = value;
-                if (Collectre())
-                {
-                    Writer();
-                }
+                Writer(masStr);
             }
         }
 
-        public static bool Separatore() //подгатавливает данные для чтения
+        private static bool Separatore() //подгатавливает данные для чтения
         {
             try
             {
@@ -78,9 +67,8 @@ namespace WPF_Cartridge.ClassesFolder
                 MessageBox.Show("Ошибка: " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-        }
-
-        public static bool Collectre() //собирает строку для записи
+        } //устарели
+        private static bool Collectre() //собирает строку для записи
         {
             try
             {
@@ -98,20 +86,11 @@ namespace WPF_Cartridge.ClassesFolder
             }
         }
 
-
-        private static bool Reader()
+        public static bool Reader()
         {
             try
             {
-                using (FileStream fstream = File.OpenRead(fileName))
-                {
-                    // выделяем массив для считывания данных из файла
-                    byte[] buffer = new byte[fstream.Length];
-                    // считываем данные
-                    fstream.ReadAsync(buffer, 0, buffer.Length);
-                    // декодируем байты в строку
-                    bufStr = Encoding.Default.GetString(buffer);
-                }
+                masStr = File.ReadAllLines(fileName);
                 return true;
             }
             catch (Exception z)
@@ -120,18 +99,11 @@ namespace WPF_Cartridge.ClassesFolder
                 return false;
             }
         }
-
-        private static bool Writer()
+        public static bool Writer(string [] str)
         {
             try
             {
-                using (FileStream fstream = new FileStream(fileName, FileMode.OpenOrCreate))
-                {
-                    // преобразуем строку в байты
-                    byte[] buffer = Encoding.Default.GetBytes(bufStr);
-                    // запись массива байтов в файл
-                    fstream.WriteAsync(buffer, 0, buffer.Length);
-                }            
+                File.WriteAllLines(fileName, str);  
                 return true;
             }
             catch (Exception z)

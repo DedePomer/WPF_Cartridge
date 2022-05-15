@@ -26,7 +26,17 @@ namespace WPF_Cartridge.ControlsPage
         public SettingsControls()
         {
             InitializeComponent();
-            CBTheme.SelectedIndex = 1;
+            ClassesFolder.SettingsClass.Reader();
+            switch (ClassesFolder.SettingsClass.theme)
+            {
+                case "Dark":
+                    CBTheme.SelectedIndex = 0;
+                    break;
+                case "White":
+                    CBTheme.SelectedIndex = 1;
+                    break;
+            }
+            TBOXMail.Text = ClassesFolder.SettingsClass.mail;
         }
 
         #region Events
@@ -36,9 +46,31 @@ namespace WPF_Cartridge.ControlsPage
         }
 
         private void BSubmit_Click(object sender, RoutedEventArgs e)
-        {             
-           var c = ClassesFolder.SettingsClass.mail;
-           ClassesFolder.SettingsClass.mail = "ss";
+        {
+            try
+            {
+                if (Verefication(TBOXMail.Text))
+                {
+                    ClassesFolder.SettingsClass.mail = TBOXMail.Text;
+                    switch (CBTheme.SelectedIndex)
+                    {
+                        case 0:
+                            ClassesFolder.SettingsClass.theme = "Dark";
+                            break;
+                        case 1:
+                            ClassesFolder.SettingsClass.theme = "White";
+                            break;
+                        default:
+                            ClassesFolder.SettingsClass.theme = "White";
+                            break;
+                    }
+                    MessageBox.Show("Данные сохраннены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception z)
+            {
+                MessageBox.Show("Ошибка: " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void BCancel_Click(object sender, RoutedEventArgs e)

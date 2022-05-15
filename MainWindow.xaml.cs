@@ -13,8 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-
+using System.IO;
 
 namespace WPF_Cartridge
 {
@@ -27,8 +26,21 @@ namespace WPF_Cartridge
         public MainWindow()
         {
             InitializeComponent();
+            if (!File.Exists(ClassesFolder.SettingsClass.fileName))
+            {
+                string[] mas = { "NULL", "White" };
+                ClassesFolder.SettingsClass.Writer(mas);
+            }
+            switch (ClassesFolder.SettingsClass.theme)
+            {
+                case "Dark":
+                    ChangeTheme('d');
+                    break;
+                case "White":
+                    ChangeTheme('w');
+                    break;
+            }
             ClassesFolder.BDClass.bd = new Model.AppContex();
-            ChangeTheme('w');
             ClassesFolder.MainWindowClass.mainWindow = this;
             ClassesFolder.ControlsClass.fillControl = UT;
             ClassesFolder.ControlsClass.nullConrol = UCnull;
