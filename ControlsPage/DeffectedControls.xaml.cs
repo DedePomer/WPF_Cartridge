@@ -106,6 +106,7 @@ namespace WPF_Cartridge.ControlsPage
                                     MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                                     ClassesFolder.MainWindowClass.mainWindow.UCDefect.Visibility = Visibility.Collapsed;
                                     ClassesFolder.IDCourierClass.ID = -1;
+                                ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
                             }
                         }                        
                     }
