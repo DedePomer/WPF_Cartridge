@@ -25,12 +25,12 @@ namespace WPF_Cartridge
         bool mainWindowState = false;
         public MainWindow()
         {
-            InitializeComponent();
             if (!File.Exists(ClassesFolder.SettingsClass.fileName))
             {
                 string[] mas = { "NULL", "White" };
                 ClassesFolder.SettingsClass.Writer(mas);
             }
+            InitializeComponent();            
             switch (ClassesFolder.SettingsClass.theme)
             {
                 case "Dark":

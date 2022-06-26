@@ -78,6 +78,7 @@ namespace WPF_Cartridge.ControlsPage
                                     reports[indRoam].countDefects += Convert.ToInt32(TBOXCount.Text);
                                     reports[indRoam].countNotDef += Convert.ToInt32(TBOXCount.Text);
                                     currentCatridge.countFull -= Convert.ToInt32(TBOXCount.Text);
+                                    //cartridges[indRoam].countFull -= Convert.ToInt32(TBOXCount.Text);
                                     ClassesFolder.BDClass.bd.SaveChanges();
                                     ClassesFolder.PagesClass.tablePage.LBTypeList.Items.Refresh();
                                     MessageBox.Show("Данные сохранены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -86,7 +87,9 @@ namespace WPF_Cartridge.ControlsPage
                             }
                             else
                             {
+
                                 cartridges[id - 1].countFull -= Convert.ToInt32(TBOXCount.Text);
+                                ClassesFolder.BDClass.bd.SaveChanges();
                                 ClassesFolder.BDClass.bd.Reports.Add(new Model.Report
                                 {
                                     title = currentCatridge.NNC,

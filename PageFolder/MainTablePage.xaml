@@ -43,7 +43,7 @@
 
         <DataGrid Grid.Row="1" x:Name="DGCatridges" 
                   AutoGenerateColumns="False" CanUserAddRows="False"                    
-                  SelectionChanged="DGCatridges_SelectionChanged">
+                  SelectionChanged="DGCatridges_SelectionChanged" SelectionMode="Single" Background="{DynamicResource MainColor}">
             <DataGrid.Columns>
                 <DataGridTextColumn  FontSize="15" Header="Номер" Binding="{Binding number}" Width="*"/>
                 <DataGridTextColumn IsReadOnly="True" FontSize="15" Header="Имя" Binding="{Binding name}" Width="*"/>

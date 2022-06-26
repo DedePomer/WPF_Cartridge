@@ -18,6 +18,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace WPF_Cartridge.PageFolder
 {
@@ -39,11 +40,13 @@ namespace WPF_Cartridge.PageFolder
             InitializeComponent();
             if (reports.Count == 0)
             {
-                Gmain.Opacity = 0;
+                TBLOCKEmpty.Visibility = Visibility.Visible;
+                GButtonPanel.Visibility = Visibility.Collapsed;
             }
             else
             {
-                Gmain.Opacity = 1;
+                TBLOCKEmpty.Visibility = Visibility.Collapsed;
+                GButtonPanel.Visibility = Visibility.Visible;
             }
             DGReport.ItemsSource = reports;
         }
@@ -99,9 +102,8 @@ namespace WPF_Cartridge.PageFolder
                 switch (MessageBox.Show("Хотите получить отчёт на почту", "Сообщение", MessageBoxButton.YesNo, MessageBoxImage.Information))
                 {
                     case MessageBoxResult.Yes:
-                        if (ClassesFolder.SettingsClass.mail == "NULL")
+                        if (!Verefication(ClassesFolder.SettingsClass.mail))
                         {
-                            MessageBox.Show("Укажите в настройках почту по умолчанию", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                             mailS = false;
                         }
                         mailS = true;
@@ -182,14 +184,15 @@ namespace WPF_Cartridge.PageFolder
                     DGReport.Items.Refresh();
                     if (reports.Count == 0)
                     {
-                        Gmain.Opacity = 0;
+                        TBLOCKEmpty.Visibility = Visibility.Visible;
+                        GButtonPanel.Visibility = Visibility.Collapsed;
                     }
 
                     DGReport.ItemsSource = reports;
 
                     if (mailS)
                     {
-                                if (MailSend(path))
+                                if (MailSend(path, ClassesFolder.SettingsClass.mail))
                                 {
                                     MessageBox.Show("Документ отправлен по адрессу " + ClassesFolder.SettingsClass.mail, "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                                 }                       
@@ -350,7 +353,8 @@ namespace WPF_Cartridge.PageFolder
                         DGReport.Items.Refresh();
                         if (reports.Count == 0)
                         {
-                            Gmain.Opacity = 0;
+                            TBLOCKEmpty.Visibility = Visibility.Visible;
+                            GButtonPanel.Visibility = Visibility.Collapsed;
                         }
                         MessageBox.Show("Данные удалены ", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                     }                    
@@ -439,16 +443,17 @@ namespace WPF_Cartridge.PageFolder
                     }
                     if (reports[i].countDefects != reports[i].countNotDef)
                     {
-                            if (reports[i].countDefects - reports[i].countNotDef <= cart[0].countFull)
-                            {
+                        if (reports[i].countDefects - reports[i].countNotDef <= cart[0].countFull)
+                        {
                             if (reports[i].countDefects > reports[i].countNotDef)
                             {
-                                cartridges[cart[0].id - 1].countFull -= (reports[i].countDefects - reports[i].countNotDef);
+                                cart[0].countFull -= (reports[i].countDefects - reports[i].countNotDef);
+                                //cartridges[cart[0].id - 1].countFull -= (reports[i].countDefects - reports[i].countNotDef);
                                 reports[i].countNotDef = reports[i].countDefects;
                             }
                             else
                             {
-                                cartridges[cart[0].id - 1].countFull += (reports[i].countNotDef - reports[i].countDefects);
+                                cart[0].countFull += (reports[i].countNotDef - reports[i].countDefects);
                                 reports[i].countNotDef = reports[i].countDefects;
                             }
                             ClassesFolder.BDClass.bd.SaveChanges();
@@ -513,13 +518,13 @@ namespace WPF_Cartridge.PageFolder
         }
 
 
-        private bool MailSend(string path)
+        private bool MailSend(string path, string mail)
         {
             try
             {
                 DateTime thisDay = DateTime.Today;
                 MailAddress from = new MailAddress("chirko_v_d@mail.ru", "Danila");
-                MailAddress to = new MailAddress("danilatchirckov@yandex.ru");
+                MailAddress to = new MailAddress(mail);
                 MailMessage m = new MailMessage(from, to);
                 m.Subject = "Отчёт за "+ thisDay.Date;
                 m.Body = "А тут могла быть ваша реклама";
@@ -538,8 +543,33 @@ namespace WPF_Cartridge.PageFolder
             }
         }
 
+
+        private bool Verefication(string verStr)
+        {
+            try
+            {
+                if (verStr.Length == 0)
+                {
+                    MessageBox.Show("Почты нет", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                string emailPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+                bool isItEmail = Regex.IsMatch(verStr, emailPattern);
+                if (!isItEmail)
+                {
+                    MessageBox.Show("Почты нет", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception z)
+            {
+                MessageBox.Show("Ошибка: " + z, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
         #endregion
 
-}
+    }
     
 }

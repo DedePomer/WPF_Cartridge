@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace WPF_Cartridge.ClassesFolder
 {
-    class SettingsClass
+    public class SettingsClass
     {
 
         private static string bufStr = "";
@@ -90,6 +90,11 @@ namespace WPF_Cartridge.ClassesFolder
         {
             try
             {
+                if (!File.Exists(fileName))
+                {
+                    string[] mas = { "NULL", "White" };
+                    ClassesFolder.SettingsClass.Writer(mas);             
+                }
                 masStr = File.ReadAllLines(fileName);
                 return true;
             }

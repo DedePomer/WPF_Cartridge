@@ -49,8 +49,6 @@ namespace WPF_Cartridge.ControlsPage
         {
             try
             {
-                if (Verefication(TBOXMail.Text))
-                {
                     ClassesFolder.SettingsClass.mail = TBOXMail.Text;
                     switch (CBTheme.SelectedIndex)
                     {
@@ -65,7 +63,7 @@ namespace WPF_Cartridge.ControlsPage
                             break;
                     }
                     MessageBox.Show("Данные сохраннены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                ClassesFolder.MainWindowClass.mainWindow.UCSettings.Visibility = Visibility.Collapsed;
             }
             catch (Exception z)
             {
