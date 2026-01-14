@@ -13,8 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using a =Microsoft.Windows.Themes;
-
+using System.IO;
 
 namespace WPF_Cartridge
 {
@@ -23,47 +22,73 @@ namespace WPF_Cartridge
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool MainWindowState = false;
+        bool mainWindowState = false;
         public MainWindow()
         {
-            InitializeComponent();
+            if (!File.Exists(ClassesFolder.SettingsClass.fileName))
+            {
+                string[] mas = { "NULL", "White" };
+                ClassesFolder.SettingsClass.Writer(mas);
+            }
+            InitializeComponent();            
+            switch (ClassesFolder.SettingsClass.theme)
+            {
+                case "Dark":
+                    ChangeTheme('d');
+                    break;
+                case "White":
+                    ChangeTheme('w');
+                    break;
+            }
+            ClassesFolder.BDClass.bd = new Model.AppContex();
+            ClassesFolder.MainWindowClass.mainWindow = this;
+            ClassesFolder.ControlsClass.fillControl = UT;
+            ClassesFolder.ControlsClass.nullConrol = UCnull;
+            ClassesFolder.ControlsClass.useControl = UCuse;
+            ClassesFolder.ControlsClass.deffectedControls = UCDefect;
             Fmain.Navigate(new PageFolder.TablePage());
         }
 
 
         #region Events
-        private void BBlackTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeTheme('d');
-        }
-
-        private void BWhiteTheme_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeTheme('w');
-        }
-
         private void BClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
-
         private void BWindow_Click(object sender, RoutedEventArgs e)
         {
-            if (!MainWindowState)
+            if (!mainWindowState)
             {
                 Application.Current.MainWindow.WindowState = WindowState.Maximized;
-                MainWindowState = true;
+                mainWindowState = true;
             }
             else
             {
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
-                MainWindowState = false;
+                mainWindowState = false;
             }
         }
-
         private void BCollapse_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+        private void BView_Click(object sender, RoutedEventArgs e)
+        {
+            Fmain.Navigate(new PageFolder.TablePage());
+        }
+        private void BCreate_Click(object sender, RoutedEventArgs e)
+        {
+            Fmain.Navigate(new PageFolder.ReportPage());
+        }
+        private void BCatrigesTable_Click(object sender, RoutedEventArgs e)
+        {
+            Fmain.Navigate(new PageFolder.MainTablePage());
+        }
+
+
+        private void BSettings_Click(object sender, RoutedEventArgs e)
+        {
+            ClassesFolder.MainWindowClass.mainWindow.UCSettings.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -80,6 +105,7 @@ namespace WPF_Cartridge
             {
                 pathTheme = "ThemeFolder\\LightTheme.xaml";
             }
+            // добавляем темы в ресурсы приложения
             var uriTheme = new Uri(pathTheme, UriKind.Relative);
             var commApp = new Uri(commPath, UriKind.Relative);
             Application.Current.Resources.Clear();
@@ -88,9 +114,7 @@ namespace WPF_Cartridge
             Application.Current.Resources.MergedDictionaries.Add(resourceDictTheme);
             Application.Current.Resources.MergedDictionaries.Add(resourceDictApp);
         }
-
         #endregion
-
 
     }
 }

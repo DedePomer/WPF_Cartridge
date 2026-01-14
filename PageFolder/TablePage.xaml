@@ -4,17 +4,69 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_Cartridge.PageFolder"
+      xmlns:uc ="clr-namespace:WPF_Cartridge.ControlsPage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TablePage">
 
-    <Grid>
-        
-            <Border Width="100" Height="100" Background="Azure" BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
-                <Border Width="96" Height="96" Background="Azure"   Style="{StaticResource BorderClik}">
 
+    <Page.Resources>
+        <DataTemplate x:Key="ProjectItem">
+            <StackPanel >
+                <Border BorderThickness="1" CornerRadius="15" ClipToBounds="True" Padding="4">
+                    <Border Background="{DynamicResource TitleColor}" CornerRadius="15" >
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Grid.Column="0">
+                                <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="15" Text="{Binding NNC, StringFormat=Название: {0}}"/>
+                                <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countFull, StringFormat=Количество заполненных: {0}}"/>
+                                <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countEmpty, StringFormat=Количество пустых: {0}}"/>
+                                <TextBlock Foreground="{DynamicResource ButtonPanelcolor}" FontSize="14" Text="{Binding countUse, StringFormat=Количество используемых: {0}}"/>
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Column="1">
+                                <Button Margin="0 0 10 0" Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
+                                        Background="#C2FF90" Content="На заправку" Name="BFill" Click="BFill_Click"/>
+                                <Button Margin="0 0 10 0" Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
+                                        Background="#887CE3" Content="Стал пустым" Name="BNull" Click="BNull_Click"/>
+                                <Button Margin="0 0 10 0" Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
+                                        Background="#E3C76B" Content="Используется" Name="BUse" Click="BUse_Click"/>
+                                <Button Uid="{Binding id}" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}" 
+                                        Background="Red" Content="Брак" Name="BDeffect" Click="BDeffect_Click"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </Border>
                 </Border>
-            </Border>
-       
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <!--место для сортировки-->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <ItemsControl  x:Name="LBTypeList" Width="auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"                     
+                     ItemTemplate="{DynamicResource ProjectItem }"
+                     HorizontalContentAlignment="Stretch">
+            </ItemsControl>
+        </Grid>
+
+
     </Grid>
 </Page>

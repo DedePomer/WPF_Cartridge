@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF">
 
-    <!--Отключаем синее выделение кнопки-->
-
+    <!--Задаём цвета-->
     <SolidColorBrush x:Key="Button.Static.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="Transparent"/>
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Transparent"/>
@@ -14,6 +13,7 @@
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="Transparent"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="Transparent"/>
 
+    <!--Отключаем выделение кнопок-->
     <Style TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
@@ -61,11 +61,19 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
     <Style TargetType="Border" x:Key="BorderClik">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Opacity" Value=".6"/>
+                <Setter Property="Opacity" Value="0.3"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="VS2012WindowStyleTitleBarButton" TargetType="Button">
+        <Setter Property="Focusable" Value="false" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter  Property="Background" Value="#FFF" />
+                <Setter  Property="Opacity" Value="0.7" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -73,21 +81,20 @@
     <!--Стили для содержимого кнопок-->
     <Style TargetType="{x:Type fa:ImageAwesome}" >
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Width" Value="16"/>
-        <Setter Property="Height" Value="16"/>
+        <Setter Property="Width" Value="18"/>
+        <Setter Property="Height" Value="18"/>
     </Style>
     <Style TargetType="Border" BasedOn="{StaticResource BorderClik}" x:Key="BorderButton">
         <Setter Property="CornerRadius" Value="4"/>
         <Setter Property="Padding" Value="3"/>
     </Style>
-    
-    <!--Стиль для кнопок верхней панели-->
-    <Style x:Key="BorderClose" TargetType="Border">
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="Red"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
+
+    <!--Шаблон для кнопок List-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="TPanelButton">
+        <Border x:Name="border" BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"  SnapsToDevicePixels="true" CornerRadius="7" Padding="4 2">
+            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+    </ControlTemplate>
+
 
 </ResourceDictionary>

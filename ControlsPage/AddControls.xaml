@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="WPF_Cartridge.ControlsPage.AddControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_Cartridge.ControlsPage"
+             mc:Ignorable="d" 
+            >
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style.Setters>
+        </Style>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <Grid x:Name="GControls" Background="#7f000000" MouseLeftButtonDown="GControls_MouseLeftButtonDown">
+        </Grid>
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                Background="{DynamicResource GrayColor}" Opacity="1"
+                Padding="5" CornerRadius="10">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock HorizontalAlignment="Left" Margin="0 10" FontSize="20">Добавление типа катриджа</TextBlock>
+                </Grid>
+
+                <TextBlock Grid.Row="1" Grid.Column="0">Номер:</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0">Имя:</TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="0">Цвет:</TextBlock>
+                <TextBlock Grid.Row="4" Grid.Column="0">Количество заполненных:</TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="0">Количество пустых:</TextBlock>
+                <TextBlock Grid.Row="6" Grid.Column="0">Количество ипользующихся:</TextBlock>
+                <TextBlock Grid.Row="7" Grid.Column="0">Цена:</TextBlock>
+
+                <TextBox Margin="5" Grid.Row="1" Grid.Column="1" x:Name="TBOXNumber"></TextBox>
+                <TextBox Margin="5" Grid.Row="2" Grid.Column="1" x:Name="TBOXName"></TextBox>
+                <TextBox Margin="5" Grid.Row="3" Grid.Column="1" x:Name="TBOXcolor"></TextBox>
+                <TextBox Margin="5" Grid.Row="4" Grid.Column="1" x:Name="TBOXCountFill"></TextBox>
+                <TextBox Margin="5" Grid.Row="5" Grid.Column="1" x:Name="TBOXCountNull"></TextBox>
+                <TextBox Margin="5" Grid.Row="6" Grid.Column="1" x:Name="TBOXCountUse"></TextBox>
+                <TextBox Margin="5" Grid.Row="7" Grid.Column="1" x:Name="TBOXPrice"></TextBox>
+
+
+                <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" 
+                            HorizontalAlignment="Right" Margin="10 0">
+                    <Button x:Name="BSubmit" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}"
+                            Content="Подтвердить" Background="#EA3D13" Click="BSubmit_Click"
+                            Margin="10 0"/>
+                    <Button x:Name="BCancel" FontSize="15" Template="{DynamicResource TPanelButton}" 
+                                        Style="{DynamicResource VS2012WindowStyleTitleBarButton}"
+                            Content="Отмена" Background="#C2FF90" Click="BCancel_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
